@@ -148,13 +148,30 @@ namespace Banking_app
             else
             {
                 var selectedItem = listView1.SelectedItems[0];
+                var passport = "";
+                
 
                 var cl = clients[selectedItem.Index];
+
+                if (consultant.getClientPassportSeries(cl) == "-" &&
+                    consultant.getClientPassportNumber(cl) == "-")
+                {
+                    passport = "-";
+                }
+                else
+                {
+                    passport = $"{consultant.getClientPassportSeries(cl)}" +
+                    $"{consultant.getClientPassportNumber(cl)}";
+                }
+
                 MessageBox.Show(text: $"Фамилия: {consultant.getClientFirstName(cl)} \n" +
                     $"Имя: {consultant.getClientFirstName(cl)} \n" +
-                    $"Отчество: {consultant.getClientPatronymic(cl)} \n" + 
+                    $"Отчество: {consultant.getClientPatronymic(cl)} \n" +
                     $"Номер телефона: {consultant.getClientPhoneNumber(cl)} \n" +
-                    $"Номер аккаунта: {consultant.getClientBankAccountNumber(cl)} \n", 
+                    $"Паспорт: {passport} \n" +
+                    $"Номер банковской карты: {consultant.getClientBankCardNumber(cl)} \n" + 
+                    $"Номер аккаунта: {consultant.getClientBankAccountNumber(cl)} \n",
+
                     "Просмотр данных о пользователе"
                     );
 

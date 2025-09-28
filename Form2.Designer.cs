@@ -181,7 +181,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(804, 441);
+            ClientSize = new Size(584, 441);
             Controls.Add(textBoxId);
             Controls.Add(textBoxBankCard);
             Controls.Add(textBoxPassport);

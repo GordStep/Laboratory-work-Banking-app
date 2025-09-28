@@ -45,7 +45,7 @@ namespace Banking_app
         }
         public void editClientPassportSeries(Client client, string new_passport_series)
         {
-            client.setPassportNumber(new_passport_series);
+            client.setPassportSeries(new_passport_series);
         }
 
         public void editClientBankAccountNumber(Client client, int new_bank_account_number)

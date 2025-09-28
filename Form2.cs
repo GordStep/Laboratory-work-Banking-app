@@ -59,8 +59,16 @@ namespace Banking_app
 
                 textBoxId.Text = selectedClient.getBankAccountNumber().ToString();
 
-                textBoxPassport.Text = manager.getClientPassportSeries(selectedClient) + " " +
-                    manager.getClientPassportNumber(selectedClient);
+                if (manager.getClientPassportSeries(selectedClient) == "-" &&
+                    manager.getClientPassportNumber(selectedClient) == "-")
+                { 
+                    textBoxPassport.Text = ""; 
+                }
+                else
+                {
+                    textBoxPassport.Text = manager.getClientPassportSeries(selectedClient) + " " +
+                        manager.getClientPassportNumber(selectedClient);
+                }
 
                 textBoxBankCard.Text = Formatter.formattingBankCardNumber(manager.getClientBankCardNumber(selectedClient));
             }
@@ -83,11 +91,13 @@ namespace Banking_app
 
                 if (clientIsEdit)
                 {
-                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()} изменил данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
+                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()}"+ 
+                        $" изменил данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
                 }
                 else
                 {
-                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()} просматривал данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
+                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()}" + 
+                        $" просматривал данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
                 }
             }
         }
@@ -111,6 +121,7 @@ namespace Banking_app
                 else
                 {
                     MessageBox.Show(text: "Введён неккоректный id!", "Ошибка!");
+                    TextUpdate();
                 }
             }
         }
@@ -132,6 +143,7 @@ namespace Banking_app
                 else
                 {
                     MessageBox.Show(text: "Введён неккоректный номер телефона!", "Ошибка!");
+                    TextUpdate();
                 }
             }
         }
@@ -184,11 +196,22 @@ namespace Banking_app
             {
                 e.Handled = true; // Предотвращаем стандартное поведение
 
+                
                 if (Checking.isValidPassport(textBoxPassport.Text))
                 {
-                    var passp = Formatter.clearString(textBoxPassport.Text);
-                    manager.editClientPassportNumber(selectedClient, passp.Substring(0, 4));
-                    manager.editClientPassportSeries(selectedClient, passp.Substring(4, 6));
+                    if (Formatter.clearString(textBoxPassport.Text).Length == 0)
+                    {
+                        manager.editClientPassportSeries(selectedClient, "");
+                        manager.editClientPassportNumber(selectedClient, "");
+                    }
+                    else
+                        {
+                        var passp = Formatter.clearString(textBoxPassport.Text);
+                        manager.editClientPassportNumber(selectedClient, passp.Substring(0, 4));
+                        manager.editClientPassportSeries(selectedClient, passp.Substring(4, 6));
+                    }
+
+
                     TextUpdate();
                     clientIsEdit = true;
                     // Переводим фокус на следующий элемент
@@ -197,6 +220,7 @@ namespace Banking_app
                 else
                 {
                     MessageBox.Show(text: "Введён неккоректный паспорт!", "Ошибка!");
+                    TextUpdate();
                 }
             }
         }
@@ -218,6 +242,7 @@ namespace Banking_app
                 else
                 {
                     MessageBox.Show(text: "Введён неправильный номер карты!", "Ошибка!");
+                    TextUpdate();
                 }
             }
         }
