@@ -1,0 +1,225 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+namespace Banking_app
+{
+    public partial class Form2 : Form
+    {
+
+        //public Form2(Client client, Manager manager)
+        //{
+        //    InitializeComponent();
+        //    this.manager = manager;
+        //    selectedClient = client;
+        //}
+
+        bool clientIsEdit = false;
+
+        public Form2(object ouser, object omanager)
+        {
+            InitializeComponent();
+
+            if (ouser is Client client)
+            {
+                selectedClient = client;
+            }
+            if (omanager is Manager manager)
+            {
+                this.manager = manager;
+            }
+        }
+
+        Client selectedClient = new(1);
+        Manager manager;
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            // Используем данные при загрузке формы
+            TextUpdate();
+        }
+
+        private void TextUpdate()
+        {
+            if (selectedClient != null)
+            {
+                textBoxFirstName.Text = selectedClient.getFirstName();
+                textBoxLastName.Text = selectedClient.getLastName();
+                textBoxPatronymic.Text = selectedClient.getPatronymic();
+                textBoxPhoneNumber.Text = Formatter.formattingPhoneNumber(selectedClient.getPhoneNumber());
+
+                textBoxId.Text = selectedClient.getBankAccountNumber().ToString();
+
+                textBoxPassport.Text = manager.getClientPassportSeries(selectedClient) + " " +
+                    manager.getClientPassportNumber(selectedClient);
+
+                textBoxBankCard.Text = Formatter.formattingBankCardNumber(manager.getClientBankCardNumber(selectedClient));
+            }
+        }
+
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.Owner is MainForm mainForm)
+            {
+                mainForm.setClientData(
+                selectedClient.getBankAccountNumber(),
+                selectedClient.getFirstName(),
+                selectedClient.getLastName(),
+                selectedClient.getPatronymic(),
+                selectedClient.getPhoneNumber(),
+                selectedClient.getPassportNumber(),
+                selectedClient.getPassportSeries(),
+                selectedClient.getBankCardNumber()
+                );
+
+                if (clientIsEdit)
+                {
+                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()} изменил данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
+                }
+                else
+                {
+                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()} просматривал данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
+                }
+            }
+        }
+
+        // Обработка textBox
+
+        private void textBoxId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
+
+                if (int.TryParse(textBoxId.Text, out int res))
+                {
+                    manager.editClientPhoneNumber(selectedClient, textBoxId.Text);
+                    TextUpdate();
+                    clientIsEdit = true;
+                    // Переводим фокус на следующий элемент
+                    SelectNextControl((Control)sender, true, true, true, true);
+                }
+                else
+                {
+                    MessageBox.Show(text: "Введён неккоректный id!", "Ошибка!");
+                }
+            }
+        }
+
+        private void textBoxPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
+
+                if (Checking.IsValidPhoneNumber(textBoxPhoneNumber.Text))
+                {
+                    manager.editClientPhoneNumber(selectedClient, Formatter.formattingPhoneNumber(textBoxPhoneNumber.Text));
+                    TextUpdate();
+                    clientIsEdit = true;
+                    // Переводим фокус на следующий элемент
+                    SelectNextControl((Control)sender, true, true, true, true);
+                }
+                else
+                {
+                    MessageBox.Show(text: "Введён неккоректный номер телефона!", "Ошибка!");
+                }
+            }
+        }
+
+        private void textBoxFirstName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
+                
+                manager.editClientFirstName(selectedClient, textBoxFirstName.Text);
+                TextUpdate();
+                clientIsEdit = true;
+                // Переводим фокус на следующий элемент
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
+        private void textBoxLastName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
+
+                manager.editClientLastName(selectedClient, textBoxLastName.Text);
+                TextUpdate();
+                clientIsEdit = true;
+                // Переводим фокус на следующий элемент
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
+        private void textBoxPatronymic_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
+
+                manager.editClientPatronymic(selectedClient, textBoxPatronymic.Text);
+                TextUpdate();
+                clientIsEdit = true;
+                // Переводим фокус на следующий элемент
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
+        private void textBoxPassport_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
+
+                if (Checking.isValidPassport(textBoxPassport.Text))
+                {
+                    var passp = Formatter.clearString(textBoxPassport.Text);
+                    manager.editClientPassportNumber(selectedClient, passp.Substring(0, 4));
+                    manager.editClientPassportSeries(selectedClient, passp.Substring(4, 6));
+                    TextUpdate();
+                    clientIsEdit = true;
+                    // Переводим фокус на следующий элемент
+                    SelectNextControl((Control)sender, true, true, true, true);
+                }
+                else
+                {
+                    MessageBox.Show(text: "Введён неккоректный паспорт!", "Ошибка!");
+                }
+            }
+        }
+
+        private void textBoxBankCard_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
+
+                if (Checking.IsValidCard(textBoxBankCard.Text))
+                {
+                    manager.editClientBankCardNumber(selectedClient, Formatter.formattingBankCardNumber(textBoxBankCard.Text));
+                    TextUpdate();
+                    clientIsEdit = true;
+                    // Переводим фокус на следующий элемент
+                    SelectNextControl((Control)sender, true, true, true, true);
+                }
+                else
+                {
+                    MessageBox.Show(text: "Введён неправильный номер карты!", "Ошибка!");
+                }
+            }
+        }
+    }
+}
