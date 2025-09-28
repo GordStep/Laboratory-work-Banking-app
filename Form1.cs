@@ -164,7 +164,7 @@ namespace Banking_app
                     $"{consultant.getClientPassportNumber(cl)}";
                 }
 
-                MessageBox.Show(text: $"Фамилия: {consultant.getClientFirstName(cl)} \n" +
+                MessageBox.Show(text: $"Фамилия: {consultant.getClientLastName(cl)} \n" +
                     $"Имя: {consultant.getClientFirstName(cl)} \n" +
                     $"Отчество: {consultant.getClientPatronymic(cl)} \n" +
                     $"Номер телефона: {consultant.getClientPhoneNumber(cl)} \n" +

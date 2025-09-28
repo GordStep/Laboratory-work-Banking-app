@@ -57,7 +57,7 @@ namespace Banking_app
                 textBoxPatronymic.Text = selectedClient.getPatronymic();
                 textBoxPhoneNumber.Text = Formatter.formattingPhoneNumber(selectedClient.getPhoneNumber());
 
-                textBoxId.Text = selectedClient.getBankAccountNumber().ToString();
+                labelTextUserId.Text = selectedClient.getBankAccountNumber().ToString();
 
                 if (manager.getClientPassportSeries(selectedClient) == "-" &&
                     manager.getClientPassportNumber(selectedClient) == "-")
@@ -104,28 +104,6 @@ namespace Banking_app
 
         // Обработка textBox
 
-        private void textBoxId_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                e.Handled = true; // Предотвращаем стандартное поведение
-
-                if (int.TryParse(textBoxId.Text, out int res))
-                {
-                    manager.editClientPhoneNumber(selectedClient, textBoxId.Text);
-                    TextUpdate();
-                    clientIsEdit = true;
-                    // Переводим фокус на следующий элемент
-                    SelectNextControl((Control)sender, true, true, true, true);
-                }
-                else
-                {
-                    MessageBox.Show(text: "Введён неккоректный id!", "Ошибка!");
-                    TextUpdate();
-                }
-            }
-        }
-
         private void textBoxPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -148,6 +126,20 @@ namespace Banking_app
             }
         }
 
+        private void textBoxLastName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
+
+                manager.editClientLastName(selectedClient, textBoxLastName.Text);
+                TextUpdate();
+                clientIsEdit = true;
+                // Переводим фокус на следующий элемент
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
         private void textBoxFirstName_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -162,19 +154,7 @@ namespace Banking_app
             }
         }
 
-        private void textBoxLastName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                e.Handled = true; // Предотвращаем стандартное поведение
 
-                manager.editClientLastName(selectedClient, textBoxLastName.Text);
-                TextUpdate();
-                clientIsEdit = true;
-                // Переводим фокус на следующий элемент
-                SelectNextControl((Control)sender, true, true, true, true);
-            }
-        }
 
         private void textBoxPatronymic_KeyPress(object sender, KeyPressEventArgs e)
         {

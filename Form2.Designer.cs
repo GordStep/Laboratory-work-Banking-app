@@ -41,27 +41,27 @@
             textBoxPhoneNumber = new TextBox();
             textBoxPassport = new TextBox();
             textBoxBankCard = new TextBox();
-            textBoxId = new TextBox();
+            labelTextUserId = new Label();
             SuspendLayout();
             // 
             // labelUserFirstName
             // 
             labelUserFirstName.AutoSize = true;
             labelUserFirstName.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelUserFirstName.Location = new Point(35, 35);
+            labelUserFirstName.Location = new Point(35, 80);
             labelUserFirstName.Name = "labelUserFirstName";
             labelUserFirstName.Size = new Size(70, 30);
-            labelUserFirstName.TabIndex = 0;
+            labelUserFirstName.TabIndex = 1;
             labelUserFirstName.Text = "Имя: ";
             // 
             // labelUserLastName
             // 
             labelUserLastName.AutoSize = true;
             labelUserLastName.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelUserLastName.Location = new Point(35, 80);
+            labelUserLastName.Location = new Point(35, 35);
             labelUserLastName.Name = "labelUserLastName";
             labelUserLastName.Size = new Size(121, 30);
-            labelUserLastName.TabIndex = 1;
+            labelUserLastName.TabIndex = 0;
             labelUserLastName.Text = "Фамилия: ";
             // 
             // labelUserPatronymic
@@ -117,19 +117,19 @@
             // textBoxFirstName
             // 
             textBoxFirstName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxFirstName.Location = new Point(111, 42);
+            textBoxFirstName.Location = new Point(111, 85);
             textBoxFirstName.Name = "textBoxFirstName";
             textBoxFirstName.Size = new Size(300, 25);
-            textBoxFirstName.TabIndex = 7;
+            textBoxFirstName.TabIndex = 8;
             textBoxFirstName.KeyPress += textBoxFirstName_KeyPress;
             // 
             // textBoxLastName
             // 
             textBoxLastName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxLastName.Location = new Point(162, 87);
+            textBoxLastName.Location = new Point(162, 42);
             textBoxLastName.Name = "textBoxLastName";
             textBoxLastName.Size = new Size(300, 25);
-            textBoxLastName.TabIndex = 8;
+            textBoxLastName.TabIndex = 7;
             textBoxLastName.KeyPress += textBoxLastName_KeyPress;
             // 
             // textBoxPatronymic
@@ -168,21 +168,22 @@
             textBoxBankCard.TabIndex = 12;
             textBoxBankCard.KeyPress += textBoxBankCard_KeyPress;
             // 
-            // textBoxId
+            // labelTextUserId
             // 
-            textBoxId.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxId.Location = new Point(80, 310);
-            textBoxId.Name = "textBoxId";
-            textBoxId.Size = new Size(300, 25);
-            textBoxId.TabIndex = 13;
-            textBoxId.KeyPress += textBoxId_KeyPress;
+            labelTextUserId.AutoSize = true;
+            labelTextUserId.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTextUserId.Location = new Point(80, 309);
+            labelTextUserId.Name = "labelTextUserId";
+            labelTextUserId.Size = new Size(28, 25);
+            labelTextUserId.TabIndex = 14;
+            labelTextUserId.Text = "id";
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 441);
-            Controls.Add(textBoxId);
+            Controls.Add(labelTextUserId);
             Controls.Add(textBoxBankCard);
             Controls.Add(textBoxPassport);
             Controls.Add(textBoxPhoneNumber);
@@ -220,6 +221,6 @@
         private TextBox textBoxPhoneNumber;
         private TextBox textBoxPassport;
         private TextBox textBoxBankCard;
-        private TextBox textBoxId;
+        private Label labelTextUserId;
     }
 }
