@@ -153,16 +153,8 @@ namespace Banking_app
 
                 var cl = clients[selectedItem.Index];
 
-                if (consultant.getClientPassportSeries(cl) == "-" &&
-                    consultant.getClientPassportNumber(cl) == "-")
-                {
-                    passport = "-";
-                }
-                else
-                {
-                    passport = $"{consultant.getClientPassportSeries(cl)}" +
-                    $"{consultant.getClientPassportNumber(cl)}";
-                }
+                passport = $"{consultant.getClientPassport(cl)}";
+                
 
                 MessageBox.Show(text: $"Фамилия: {consultant.getClientLastName(cl)} \n" +
                     $"Имя: {consultant.getClientFirstName(cl)} \n" +

@@ -15,12 +15,12 @@ namespace Banking_app
 
 
         //// Функции изменения данных клиента 
-        //public void editClientFirstName(Client client, string new_first_name);
-        //public void editClientLastName(Client client, string new_last_name);
-        //public void editClientPatronymic(Client client, string new_patronymic);
-        //public void editClientPhoneNumber(Client client, string new_phone_number);
-        //public void editClientPassportNumber(Client client, string new_passport_number);
-        //public void editClientBankAccountNumber(Client client, string new_bank_account_number);
+        //public void setClientFirstName(Client client, string new_first_name);
+        //public void setClientLastName(Client client, string new_last_name);
+        //public void setClientPatronymic(Client client, string new_patronymic);
+        //public void setClientPhoneNumber(Client client, string new_phone_number);
+        //public void setClientPassportNumber(Client client, string new_passport_number);
+        //public void setClientBankAccountNumber(Client client, string new_bank_account_number);
 
 
         // Функции полученя информации о клиенте
@@ -28,7 +28,9 @@ namespace Banking_app
         public string getClientLastName(Client client);
         public string getClientPatronymic(Client client);
         public string getClientPhoneNumber(Client client);
+
         public string getClientPassportNumber(Client client);
+        public string getClientPassport(Client client);
         public string getClientBankAccountNumber(Client client);
     }
 }

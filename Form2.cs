@@ -112,7 +112,7 @@ namespace Banking_app
 
                 if (Checking.IsValidPhoneNumber(textBoxPhoneNumber.Text))
                 {
-                    manager.editClientPhoneNumber(selectedClient, Formatter.formattingPhoneNumber(textBoxPhoneNumber.Text));
+                    manager.setClientPhoneNumber(selectedClient, Formatter.formattingPhoneNumber(textBoxPhoneNumber.Text));
                     TextUpdate();
                     clientIsEdit = true;
                     // Переводим фокус на следующий элемент
@@ -132,7 +132,7 @@ namespace Banking_app
             {
                 e.Handled = true; // Предотвращаем стандартное поведение
 
-                manager.editClientLastName(selectedClient, textBoxLastName.Text);
+                manager.setClientLastName(selectedClient, textBoxLastName.Text);
                 TextUpdate();
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
@@ -146,7 +146,7 @@ namespace Banking_app
             {
                 e.Handled = true; // Предотвращаем стандартное поведение
                 
-                manager.editClientFirstName(selectedClient, textBoxFirstName.Text);
+                manager.setClientFirstName(selectedClient, textBoxFirstName.Text);
                 TextUpdate();
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
@@ -162,7 +162,7 @@ namespace Banking_app
             {
                 e.Handled = true; // Предотвращаем стандартное поведение
 
-                manager.editClientPatronymic(selectedClient, textBoxPatronymic.Text);
+                manager.setClientPatronymic(selectedClient, textBoxPatronymic.Text);
                 TextUpdate();
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
@@ -176,19 +176,37 @@ namespace Banking_app
             {
                 e.Handled = true; // Предотвращаем стандартное поведение
 
-                
+                if (Formatter.clearString(textBoxPassport.Text).Length == 0)
+                {
+                    manager.setClientPassportSeries(selectedClient, "");
+                    manager.setClientPassportNumber(selectedClient, "");
+                }
+
+                try
+                {
+                    manager.setClientPassport(selectedClient, textBoxPassport.Text);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.ToString() == "invalid passport")
+                    {
+                        MessageBox.Show(text: "Введён неккоректный паспорт!", "Ошибка!");
+                        TextUpdate();
+                    }
+                }
+
                 if (Checking.isValidPassport(textBoxPassport.Text))
                 {
                     if (Formatter.clearString(textBoxPassport.Text).Length == 0)
                     {
-                        manager.editClientPassportSeries(selectedClient, "");
-                        manager.editClientPassportNumber(selectedClient, "");
+                        manager.setClientPassportSeries(selectedClient, "");
+                        manager.setClientPassportNumber(selectedClient, "");
                     }
                     else
                         {
                         var passp = Formatter.clearString(textBoxPassport.Text);
-                        manager.editClientPassportNumber(selectedClient, passp.Substring(0, 4));
-                        manager.editClientPassportSeries(selectedClient, passp.Substring(4, 6));
+                        manager.setClientPassportNumber(selectedClient, passp.Substring(0, 4));
+                        manager.setClientPassportSeries(selectedClient, passp.Substring(4, 6));
                     }
 
 
@@ -213,7 +231,7 @@ namespace Banking_app
 
                 if (Checking.IsValidCard(textBoxBankCard.Text))
                 {
-                    manager.editClientBankCardNumber(selectedClient, Formatter.formattingBankCardNumber(textBoxBankCard.Text));
+                    manager.setClientBankCardNumber(selectedClient, Formatter.formattingBankCardNumber(textBoxBankCard.Text));
                     TextUpdate();
                     clientIsEdit = true;
                     // Переводим фокус на следующий элемент

@@ -21,38 +21,42 @@ namespace Banking_app
         // У менеджера есть права на изменение данных клиента
 
         // Функции изменения данных клиента 
-        public void editClientFirstName(Client client, string new_first_name)
+        public void setClientFirstName(Client client, string new_first_name)
         {
             client.setFirstName(new_first_name);
         }
-        public void editClientLastName(Client client, string new_last_name) 
+        public void setClientLastName(Client client, string new_last_name) 
         { 
             client.setLastName(new_last_name); 
         }
-        public void editClientPatronymic(Client client, string new_patronymic)
+        public void setClientPatronymic(Client client, string new_patronymic)
         {
             client.setPatronymic(new_patronymic);
         }
 
-        public void editClientPhoneNumber(Client client, string new_phone_number)
+        public void setClientPhoneNumber(Client client, string new_phone_number)
         {
             client.setPhoneNumber(Formatter.formattingPhoneNumber(new_phone_number));
         }
-
-        public void editClientPassportNumber(Client client, string new_passport_number)
+        //
+        public void setClientPassportNumber(Client client, string new_passport_number)
         {
             client.setPassportNumber(new_passport_number);
         }
-        public void editClientPassportSeries(Client client, string new_passport_series)
+        public void setClientPassportSeries(Client client, string new_passport_series)
         {
             client.setPassportSeries(new_passport_series);
         }
-
-        public void editClientBankAccountNumber(Client client, int new_bank_account_number)
+        //
+        public void setClientPassport(Client client, string new_passport)
+        {
+            client.setPassport(new_passport);
+        }
+        public void setClientBankAccountNumber(Client client, int new_bank_account_number)
         {
             client.setBankAccountNumber(new_bank_account_number);
         }
-        public void editClientBankCardNumber(Client client, string new_bank_card_number)
+        public void setClientBankCardNumber(Client client, string new_bank_card_number)
         {
             if (Checking.IsValidCard(new_bank_card_number))
                 client.setBankCardNumber(Formatter.formattingBankCardNumber(new_bank_card_number));

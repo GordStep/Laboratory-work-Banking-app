@@ -65,6 +65,7 @@ namespace Banking_app
                 return "-";
             else return client.getPhoneNumber();
         }
+        //
         public string getClientPassportNumber(Client client)
         {
             if (client.getPassportNumber().Length == 0)
@@ -76,6 +77,13 @@ namespace Banking_app
             if (client.getPassportNumber().Length == 0)
                 return "-";
             else return string.Concat(Enumerable.Repeat("*", client.getPassportSeries().Length));
+        }
+        //
+        public string getClientPassport(Client client)
+        {
+            if (client.getPassport().Length == 0)
+                return "-";
+            else return string.Concat(Enumerable.Repeat("*", client.getPassport().Length));
         }
         public string getClientBankAccountNumber(Client client)
         {
