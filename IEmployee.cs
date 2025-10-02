@@ -27,9 +27,9 @@ namespace Banking_app
         public string getClientFirstName(Client client);
         public string getClientLastName(Client client);
         public string getClientPatronymic(Client client);
-        public string getClientPhoneNumber(Client client);
+        //public string getClientPhoneNumber(Client client);
 
-        public string getClientPassportNumber(Client client);
+        //public string getClientPassportNumber(Client client);
         public string getClientPassport(Client client);
         public string getClientBankAccountNumber(Client client);
     }

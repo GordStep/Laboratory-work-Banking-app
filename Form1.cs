@@ -18,8 +18,7 @@ namespace Banking_app
                 last_name: "Петров",
                 patronymic: "Сергеевич",
                 phone_number: "+7(912)345-67-89",
-                passport_number: "123456",
-                passport_series: "4501",
+                passport: "4501123456",
                 bank_card_number: "2200770870352830"
             ),
             new Client(
@@ -28,8 +27,7 @@ namespace Banking_app
                 last_name: "Иванова",
                 patronymic: "Александровна",
                 phone_number: "+7(923)456-78-90",
-                passport_number: "654321",
-                passport_series: "4502",
+                passport: "4502654321",
                 bank_card_number: "5276-8800-2345-6789"
             ),
             new Client(
@@ -38,8 +36,7 @@ namespace Banking_app
                 last_name: "Сидоров",
                 patronymic: "Владимирович",
                 phone_number: "+7(934)567-89-01",
-                passport_number: "789012",
-                passport_series: "4503",
+                passport: "4503789012",
                 bank_card_number: "4276-8800-3456-7890"
             ),
             new Client(
@@ -48,8 +45,7 @@ namespace Banking_app
                 last_name: "Смирнова",
                 patronymic: "Дмитриевна",
                 phone_number: "+7(945)678-90-12",
-                passport_number: "890123",
-                passport_series: "4504",
+                passport: "4504890123",
                 bank_card_number: "5276-8800-4567-8901"
             ),
             new Client(
@@ -58,8 +54,7 @@ namespace Banking_app
                 last_name: "Козлов",
                 patronymic: "Олегович",
                 phone_number: "+7(956)789-01-23",
-                passport_number: "901234",
-                passport_series: "4505",
+                passport: "4505901234",
                 bank_card_number: "4276-8800-5678-9012"
             )
         };
@@ -141,6 +136,8 @@ namespace Banking_app
                 //MessageBox.Show("клик");
                 var selectedItem = listView1.SelectedItems[0];
 
+                //MessageBox.Show($"{clients[selectedItem.Index].getPassport()}");
+
                 Form2 form = new Form2(clients[selectedItem.Index], manager);
                 form.Owner = this;
                 form.Show();
@@ -148,21 +145,17 @@ namespace Banking_app
             else
             {
                 var selectedItem = listView1.SelectedItems[0];
-                var passport = "";
-                
 
                 var cl = clients[selectedItem.Index];
-
-                passport = $"{consultant.getClientPassport(cl)}";
                 
 
-                MessageBox.Show(text: $"Фамилия: {consultant.getClientLastName(cl)} \n" +
-                    $"Имя: {consultant.getClientFirstName(cl)} \n" +
-                    $"Отчество: {consultant.getClientPatronymic(cl)} \n" +
-                    $"Номер телефона: {consultant.getClientPhoneNumber(cl)} \n" +
-                    $"Паспорт: {passport} \n" +
-                    $"Номер банковской карты: {consultant.getClientBankCardNumber(cl)} \n" + 
-                    $"Номер аккаунта: {consultant.getClientBankAccountNumber(cl)} \n",
+                MessageBox.Show(text: $"Фамилия: {cl.getLastName()} \n" +
+                    $"Имя: {cl.getFirstName()} \n" +
+                    $"Отчество: {cl.getPatronymic()} \n" +
+                    $"Номер телефона: {Formatter.infoForConsultant(cl.getPhoneNumber())} \n" +
+                    $"Паспорт: {Formatter.infoForConsultant(cl.getPassport())} \n" +
+                    $"Номер банковской карты: {Formatter.infoForConsultant(cl.getBankCardNumber())} \n" + 
+                    $"Номер аккаунта: {cl.getBankAccountNumber()} \n",
 
                     "Просмотр данных о пользователе"
                     );
@@ -177,9 +170,8 @@ namespace Banking_app
             string last_name,
             string patronymic,
             string phone_number,
-            string passport_number,
-            string passport_series,
-            string bank_card_number
+            string bank_card_number,
+            string passport
             ) {
             foreach (Client client in clients)
             {
@@ -189,9 +181,10 @@ namespace Banking_app
                     client.setLastName(last_name);
                     client.setPatronymic(patronymic);
                     client.setPhoneNumber(phone_number);
-                    client.setPassportNumber(passport_number);
-                    client.setPassportSeries(passport_series);
+                    //client.setPassportNumber(passport_number);
+                    //client.setPassportSeries(passport_series);
                     client.setBankCardNumber(bank_card_number);
+                    client.setPassport(passport);
                 }
             }
 

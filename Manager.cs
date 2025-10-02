@@ -21,78 +21,78 @@ namespace Banking_app
         // У менеджера есть права на изменение данных клиента
 
         // Функции изменения данных клиента 
-        public void setClientFirstName(Client client, string new_first_name)
-        {
-            client.setFirstName(new_first_name);
-        }
-        public void setClientLastName(Client client, string new_last_name) 
-        { 
-            client.setLastName(new_last_name); 
-        }
-        public void setClientPatronymic(Client client, string new_patronymic)
-        {
-            client.setPatronymic(new_patronymic);
-        }
+        //public void setClientFirstName(Client client, string new_first_name)
+        //{
+        //    client.setFirstName(new_first_name);
+        //}
+        //public void setClientLastName(Client client, string new_last_name) 
+        //{ 
+        //    client.setLastName(new_last_name); 
+        //}
+        //public void setClientPatronymic(Client client, string new_patronymic)
+        //{
+        //    client.setPatronymic(new_patronymic);
+        //}
 
-        public void setClientPhoneNumber(Client client, string new_phone_number)
-        {
-            client.setPhoneNumber(Formatter.formattingPhoneNumber(new_phone_number));
-        }
-        //
-        public void setClientPassportNumber(Client client, string new_passport_number)
-        {
-            client.setPassportNumber(new_passport_number);
-        }
-        public void setClientPassportSeries(Client client, string new_passport_series)
-        {
-            client.setPassportSeries(new_passport_series);
-        }
-        //
-        public void setClientPassport(Client client, string new_passport)
-        {
-            client.setPassport(new_passport);
-        }
-        public void setClientBankAccountNumber(Client client, int new_bank_account_number)
-        {
-            client.setBankAccountNumber(new_bank_account_number);
-        }
-        public void setClientBankCardNumber(Client client, string new_bank_card_number)
-        {
-            if (Checking.IsValidCard(new_bank_card_number))
-                client.setBankCardNumber(Formatter.formattingBankCardNumber(new_bank_card_number));
-        }
+        //public void setClientPhoneNumber(Client client, string new_phone_number)
+        //{
+        //    client.setPhoneNumber(Formatter.formattingPhoneNumber(new_phone_number));
+        //}
+        ////
+        //public void setClientPassportNumber(Client client, string new_passport_number)
+        //{
+        //    client.setPassportNumber(new_passport_number);
+        //}
+        //public void setClientPassportSeries(Client client, string new_passport_series)
+        //{
+        //    client.setPassportSeries(new_passport_series);
+        //}
+        ////
+        //public void setClientPassport(Client client, string new_passport)
+        //{
+        //    client.setPassport(new_passport);
+        //}
+        //public void setClientBankAccountNumber(Client client, int new_bank_account_number)
+        //{
+        //    client.setBankAccountNumber(new_bank_account_number);
+        //}
+        //public void setClientBankCardNumber(Client client, string new_bank_card_number)
+        //{
+        //    if (Checking.IsValidCard(new_bank_card_number))
+        //        client.setBankCardNumber(Formatter.formattingBankCardNumber(new_bank_card_number));
+        //}
 
         // Функции полученя информации о клиенте
         // Функции получения основной информации о клинете наследуются 
-        new public string getClientPhoneNumber(Client client)
-        {
-            if (client.getPhoneNumber().Length == 0)
-                return "-";
-            else return client.getPhoneNumber();
-        }
-        new public string getClientPassportNumber(Client client)
-        {
-            if (client.getPassportNumber().Length == 0)
-                return "-";
-            else return client.getPassportNumber();
-        }
-        new public string getClientPassportSeries(Client client)
-        {
-            if (client.getPassportSeries().Length == 0)
-                return "-";
-            else return client.getPassportSeries();
-        }
-        new public string getClientBankAccountNumber(Client client)
-        {
-            if (client.getBankAccountNumber().ToString().Length == 0)
-                return "-";
-            else return client.getBankAccountNumber().ToString();
-        }
-        new public string getClientBankCardNumber(Client client)
-        {
-            if (client.getBankCardNumber().ToString().Length == 0)
-                return "-";
-            else return client.getBankCardNumber().ToString();
-        }
+        //new public string getClientPhoneNumber(Client client)
+        //{
+        //    return Formatter.formattingPhoneNumber(client.getPhoneNumber());
+        //}
+        ////new public string getClientPassportNumber(Client client)
+        ////{
+        ////    if (client.getPassportNumber().Length == 0)
+        ////        return "-";
+        ////    else return client.getPassportNumber();
+        ////}
+        ////new public string getClientPassportSeries(Client client)
+        ////{
+        ////    if (client.getPassportSeries().Length == 0)
+        ////        return "-";
+        ////    else return client.getPassportSeries();
+        ////}
+
+        //new public string getClientPassport(Client client)
+        //{
+        //    return Formatter.formattingPassport(client.getPassport());
+        //}
+
+        //new public string getClientBankAccountNumber(Client client)
+        //{
+        //    return client.getBankAccountNumber().ToString();
+        //}
+        //new public string getClientBankCardNumber(Client client)
+        //{
+        //    return Formatter.formattingBankCardNumber(client.getBankCardNumber());
+        //}
     }
 }

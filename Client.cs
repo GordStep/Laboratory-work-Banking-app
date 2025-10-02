@@ -11,8 +11,8 @@ namespace Banking_app
     {
         private string phone_number;
 
-        private string passport_number;
-        private string passport_series;
+        //private string passport_number;
+        //private string passport_series;
 
         private string passport;
 
@@ -26,8 +26,8 @@ namespace Banking_app
             patronymic = "";
 
             phone_number =      "";
-            passport_number =   "";
-            passport_series =   "";
+            //passport_number =   "";
+            //passport_series =   "";
 
             passport = "";
 
@@ -40,8 +40,7 @@ namespace Banking_app
             string last_name, 
             string patronymic,
             string phone_number,
-            string passport_number,
-            string passport_series,
+            string passport,
             string bank_card_number
             )
         {
@@ -52,10 +51,10 @@ namespace Banking_app
             this.phone_number =     Formatter.clearString(phone_number);
 
 
-            this.passport_number =  Formatter.clearString(passport_number);
-            this.passport_series =  Formatter.clearString(passport_series);
-            //this.passport = Formatter.clearString(passport);
-            this.passport = this.passport_series + this.passport_number;
+            //this.passport_number =  Formatter.clearString(passport_number);
+            //this.passport_series =  Formatter.clearString(passport_series);
+            this.passport = Formatter.clearString(passport);
+            //this.passport = this.passport_series + this.passport_number;
 
             this.bank_card_number = Formatter.clearString(bank_card_number);
 
@@ -70,19 +69,14 @@ namespace Banking_app
         }
 
         public string getPhoneNumber() { return Formatter.formattingPhoneNumber(phone_number); }
-        //
-        public string getPassportNumber() { return passport_number; }
-        public string getPassportSeries() { return passport_series; }
-        //
-        public string getPassport()
-        {
-            return Formatter.formattingPassport(passport);
-        }
+        ////
+        //public string getPassportNumber() { return passport_number; }
+        //public string getPassportSeries() { return passport_series; }
+        ////
+        public string getPassport() { return Formatter.formattingPassport(passport); }
+        public string getBankCardNumber() { return Formatter.formattingBankCardNumber(bank_card_number); }
         public int getBankAccountNumber() {  return bank_account_number; }
-        public string getBankCardNumber() 
-        { 
-            return Formatter.formattingBankCardNumber(bank_card_number); 
-        }
+        
 
         // Изменение данных клиента
         public void setFirstName(string new_first_name) { first_name = new_first_name; }
@@ -98,30 +92,29 @@ namespace Banking_app
             else throw new Exception("invalid phone number");
         }
 
-        //
-        public void setPassportNumber(string new_passport) { passport = Formatter.clearString(new_passport); }
-        public void setPassportSeries(string new_passport_series) { passport_series = new_passport_series; }
-        //
+        ////
+        //public void setPassportNumber(string new_passport) { passport = Formatter.clearString(new_passport); }
+        //public void setPassportSeries(string new_passport_series) { passport_series = new_passport_series; }
+        ////
 
         public void setPassport(string new_passport)
         {
             if (Checking.isValidPassport(new_passport))
             {
                 passport = Formatter.clearString(new_passport);
+                //MessageBox.Show(passport);
             }
-            else throw new Exception("invalid passport");
+            else throw new Exception("Неверный паспорт.");
         }
-
-
-        public void setBankAccountNumber(int new_bank_account_number) { bank_account_number = new_bank_account_number; }
-        
         public void setBankCardNumber(string new_bank_card_number) 
         {
             if (Checking.IsValidCard(new_bank_card_number))
             {
-                bank_card_number = Formatter.formattingBankCardNumber(new_bank_card_number);
+                bank_card_number = Formatter.clearString(new_bank_card_number);
             }
-            else throw new Exception("invalid bank card number");
+            else throw new Exception("Неверный номер банковской карты!");
         }
+
+        public void setBankAccountNumber(int new_bank_account_number) { bank_account_number = new_bank_account_number; }
     }
 }

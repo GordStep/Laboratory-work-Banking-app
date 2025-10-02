@@ -10,9 +10,9 @@ namespace Banking_app
     {
         static public string formattingPhoneNumber(string phoneNumber)
         {
-            if (phoneNumber.Length == 0) return "";
-
             phoneNumber = clearString(phoneNumber);
+
+            if (phoneNumber.Length == 0) return "-";
 
             string country_code;
             string sity_code = phoneNumber.Substring(1, 3); 
@@ -36,16 +36,15 @@ namespace Banking_app
         {
             bankCardNumber = clearString(bankCardNumber);
 
-            if (bankCardNumber.Length == 0 || bankCardNumber == null) return "";
+            if (bankCardNumber.Length == 0 || bankCardNumber == null) return "-";
 
             return $"{bankCardNumber.Substring(0, 4)}-{bankCardNumber.Substring(4, 4)}-{bankCardNumber.Substring(8, 4)}-{bankCardNumber.Substring(12, 4)}";
         }
         static public string formattingPassport(string passport)
         {
-            if (passport.Length == 0) return "";
-
-            passport = clearString(passport);
-            return $"{passport.Substring(0, 4)} {passport.Substring(4, 6)}";
+            //MessageBox.Show(passport);
+            if (clearString(passport).Length == 0 || passport == "-") return "-";
+            else return $"{passport.Substring(0, 4)} {passport.Substring(4, 6)}";
         }
 
         static public string clearString(string str)
@@ -56,6 +55,19 @@ namespace Banking_app
             str = str.Replace("(", "");
             str = str.Replace(")", "");
             return str;
+        }
+
+        static public string infoForConsultant(string info)
+        {
+            info = clearString(info);
+            if (info.Length == 0)
+            {
+                return "-";
+            }
+            else
+            {
+                return string.Concat(Enumerable.Repeat("*", info.Length));
+            }
         }
     }
 }

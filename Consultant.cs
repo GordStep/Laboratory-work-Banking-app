@@ -34,7 +34,7 @@ namespace Banking_app
 
         public void setFirstName(string first_name) { this.first_name = first_name; }
         public void setLastName(string last_name) { this.last_name = last_name; }
-        public void setPtronymic(string patronymic) { this.patronymic = patronymic; }
+        public void setPatronymic(string patronymic) { this.patronymic = patronymic; }
 
         // У консультанта нет прав на изменение данных клиента
 
@@ -58,44 +58,40 @@ namespace Banking_app
                 return "-";
             else return client.getPatronymic();
         }
+
         // Закрытая для консультанта информация
-        public string getClientPhoneNumber(Client client)
-        {
-            if (client.getPhoneNumber().Length == 0)
-                return "-";
-            else return client.getPhoneNumber();
-        }
+
         //
-        public string getClientPassportNumber(Client client)
-        {
-            if (client.getPassportNumber().Length == 0)
-                return "-";
-            else return string.Concat(Enumerable.Repeat("*", client.getPassportNumber().Length));
-        }
-        public string getClientPassportSeries(Client client)
-        {
-            if (client.getPassportNumber().Length == 0)
-                return "-";
-            else return string.Concat(Enumerable.Repeat("*", client.getPassportSeries().Length));
-        }
+        //public string getClientPassportNumber(Client client)
+        //{
+        //    if (client.getPassportNumber().Length == 0)
+        //        return "-";
+        //    else return string.Concat(Enumerable.Repeat("*", client.getPassportNumber().Length));
+        //}
+        //public string getClientPassportSeries(Client client)
+        //{
+        //    if (client.getPassportNumber().Length == 0)
+        //        return "-";
+        //    else return string.Concat(Enumerable.Repeat("*", client.getPassportSeries().Length));
+        //}
         //
-        public string getClientPassport(Client client)
-        {
-            if (client.getPassport().Length == 0)
-                return "-";
-            else return string.Concat(Enumerable.Repeat("*", client.getPassport().Length));
-        }
-        public string getClientBankAccountNumber(Client client)
-        {
-            if (client.getBankAccountNumber().ToString().Length == 0)
-                return "-";
-            else return client.getBankAccountNumber().ToString();
-        }
-        public string getClientBankCardNumber(Client client)
-        {
-            if (client.getBankCardNumber().ToString().Length == 0)
-                return "-";
-            else return string.Concat(Enumerable.Repeat("*", client.getBankCardNumber().ToString().Length));
-        }
+        //public string getClientPassport(Client client)
+        //{
+        //    if (Formatter.clearString(client.getPassport()).Length == 0)
+        //        return "-";
+        //    else return string.Concat(Enumerable.Repeat("*", client.getPassport().Length));
+        //}
+        //public string getClientBankAccountNumber(Client client)
+        //{
+        //    if (client.getBankAccountNumber().ToString().Length == 0)
+        //        return "-";
+        //    else return client.getBankAccountNumber().ToString();
+        //}
+        //public string getClientBankCardNumber(Client client)
+        //{
+        //    if (Formatter.clearString(client.getBankCardNumber()).Length == 0)
+        //        return "-";
+        //    else return string.Concat(Enumerable.Repeat("*", client.getBankCardNumber().Length));
+        //}
     }
 }

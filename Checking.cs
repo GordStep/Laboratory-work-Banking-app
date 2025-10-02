@@ -11,9 +11,9 @@ namespace Banking_app
     {
         static public bool IsValidPhoneNumber(string phone_number)
         {
-            if (phone_number.Length == 0) return true;
-
             phone_number = Formatter.clearString(phone_number);
+
+            if (phone_number.Length == 0) return true;
 
             foreach (char c in phone_number)
                 if (c < '0' || c > '9') return false;
@@ -22,13 +22,13 @@ namespace Banking_app
         }
 
         static public bool isValidPassport(string passport)
-        {
-            
+        {        
             passport = Formatter.clearString(passport);
 
-            if (string.IsNullOrEmpty(passport)) return true;
 
-            if (passport.Length < 10 || passport.Length > 11) return false;
+            if (passport.Length == 0) return true;
+
+            if (passport.Length != 10) return false;
 
 
             foreach (char c in passport)
@@ -40,9 +40,9 @@ namespace Banking_app
 
         static public bool IsValidCard(string card)
         {
-            if (card.Length == 0) return true; 
-
             card = Formatter.clearString(card);
+
+            if (card.Length == 0) return true;
 
             if (card.Length < 13)
                 return false;
