@@ -54,7 +54,6 @@ namespace Banking_app
             }
 
             int control_sum = 0;
-            //Console.WriteLine("i  sum");
 
             for (int i = 0; i < card.Length; i++)
             {
@@ -72,7 +71,6 @@ namespace Banking_app
                 //Console.WriteLine(el.ToString() + ", " + control_sum.ToString());
             }
 
-            //Console.WriteLine(control_sum);
             if (control_sum % 10 == 0)
             {
                 return true;

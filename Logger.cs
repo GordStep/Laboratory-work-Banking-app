@@ -16,7 +16,7 @@ namespace Banking_app
 
             Filer.CreateDir(LogFileDir);
 
-            string encrypted_message = CeaserCipher(message, sh);
+            string encrypted_message = Crypter.StringCeaserCipher(message, sh);
 
             var time = DateTime.Now.ToString();
 
@@ -33,31 +33,31 @@ namespace Banking_app
         //    enFile.Close();
         //}
 
-        public static void FileDecryption(string filePath, int sh)
+        public static void FileDecryption(string fullFileName, int sh)
         {
             var unFile = File.CreateText("BankData\\unencrypted_file.txt");
-            string text = File.ReadAllText($"{filePath}");
+            string text = File.ReadAllText($"{fullFileName}");
 
-            unFile.Write(CeaserCipher(text, -sh));
+            unFile.Write(Crypter.StringCeaserCipher(text, -sh));
             unFile.Close();
         }
-        public static string CeaserCipher(string text, int shift)
-        {
-            char[] buffer = text.ToCharArray();
+        //public static string CeaserCipher(string text, int shift)
+        //{
+        //    char[] buffer = text.ToCharArray();
 
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                if (char.IsLetter(buffer[i]))
-                {
-                    char startLetter = 'а';
-                    if (char.IsUpper(buffer[i])) startLetter = 'А';
+        //    for (int i = 0; i < buffer.Length; i++)
+        //    {
+        //        if (char.IsLetter(buffer[i]))
+        //        {
+        //            char startLetter = 'а';
+        //            if (char.IsUpper(buffer[i])) startLetter = 'А';
 
-                    int char_ind = buffer[i] - startLetter;
+        //            int char_ind = buffer[i] - startLetter;
 
-                    buffer[i] = (char)((((buffer[i] + shift) - startLetter + 33) % 33) + startLetter);
-                }
-            }
-            return new string(buffer);
-        }
+        //            buffer[i] = (char)((((buffer[i] + shift) - startLetter + 33) % 33) + startLetter);
+        //        }
+        //    }
+        //    return new string(buffer);
+        //}
     }
 }

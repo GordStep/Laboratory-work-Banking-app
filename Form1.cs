@@ -1,6 +1,7 @@
 using Microsoft.VisualBasic.Logging;
 using System.Numerics;
 using System.Runtime.InteropServices.Marshalling;
+using System.Windows.Forms;
 
 namespace Banking_app
 {
@@ -16,9 +17,11 @@ namespace Banking_app
         static string dirClientInfo = @$"{Directory.GetCurrentDirectory().ToString()}\BankData";
         static string clientInfoFileName = "\\Clients.txt";
         static string fullFileName = dirClientInfo + clientInfoFileName;
-        List<Client> clients = new List<Client>();
+        static string fullDecryptFileName = dirClientInfo + "\\decryptInfo.txt";
 
-        
+        int sh = 5;
+
+        List<Client> clients = new List<Client>();
 
         public MainForm()
         {
@@ -166,7 +169,7 @@ namespace Banking_app
 
             try
             {
-                clients = ClientFileReader.ReadClientsFile(dirClientInfo + clientInfoFileName);
+                clients = ClientFileReader.ReadClientsFile(fullFileName, fullDecryptFileName, sh);
                 //MessageBox.Show($"{dirClientInfo + clientInfoFileName}");
             }
             catch (Exception ex)
@@ -177,7 +180,7 @@ namespace Banking_app
 
         public void UpdateClientsDataInFile()
         {
-            ClientsSaver.SaveClientsToTXT(clients, dirClientInfo, clientInfoFileName, true);
+            ClientsSaver.SaveClientsToTXT(clients, dirClientInfo, clientInfoFileName, sh, true);
         }
 
         public void UpdateMaxClientId()

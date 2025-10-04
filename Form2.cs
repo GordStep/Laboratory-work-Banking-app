@@ -15,14 +15,6 @@ namespace Banking_app
 {
     public partial class Form2 : Form
     {
-
-        //public Form2(Client client, Manager manager)
-        //{
-        //    InitializeComponent();
-        //    this.manager = manager;
-        //    selectedClient = client;
-        //}
-
         bool clientIsEdit = false;
 
         public Form2(object ouser, object omanager)
@@ -112,26 +104,10 @@ namespace Banking_app
                     return;
                 }
 
-                //manager.setClientLastName(selectedClient, textBoxLastName.Text);
                 TextUpdate();
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
                 SelectNextControl((Control)sender, true, true, true, true);
-
-                //if (Checking.IsValidPhoneNumber(textBoxPhoneNumber.Text))
-                //{
-                //    selectedClient.setPhoneNumber(Formatter.clearString(textBoxPhoneNumber.Text));
-
-                //    TextUpdate();
-                //    clientIsEdit = true;
-                //    // Переводим фокус на следующий элемент
-                //    SelectNextControl((Control)sender, true, true, true, true);
-                //}
-                //else
-                //{
-                //    MessageBox.Show(text: "Введён неккоректный номер телефона!", "Ошибка!");
-                //    TextUpdate();
-                //}
             }
         }
 
@@ -152,7 +128,6 @@ namespace Banking_app
                     return;
                 }
 
-                //manager.setClientLastName(selectedClient, textBoxLastName.Text);
                 TextUpdate();
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
@@ -177,15 +152,12 @@ namespace Banking_app
                     return;
                 }
 
-                //selectedClient, textBoxFirstName.Text);
                 TextUpdate();
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
                 SelectNextControl((Control)sender, true, true, true, true);
             }
         }
-
-
 
         private void textBoxPatronymic_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -204,7 +176,6 @@ namespace Banking_app
                     return;
                 }
 
-                //manager.setClientPatronymic(selectedClient, textBoxPatronymic.Text);
                 TextUpdate();
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
@@ -218,14 +189,6 @@ namespace Banking_app
             {
                 e.Handled = true; // Предотвращаем стандартное поведение
 
-                //if (Formatter.clearString(textBoxPassport.Text).Length == 0)
-                //{
-                //    selectedClient.setPassport(textBoxPassport.Text);
-
-                //    manager.setClientPassportSeries(selectedClient, "");
-                //    manager.setClientPassportNumber(selectedClient, "");
-                //}
-
                 try
                 {
                     selectedClient.setPassport(textBoxPassport.Text);
@@ -237,31 +200,10 @@ namespace Banking_app
                     return;
                 }
 
-                //if (Checking.isValidPassport(textBoxPassport.Text))
-                //{
-                //    if (Formatter.clearString(textBoxPassport.Text).Length == 0)
-                //    {
-                //        manager.setClientPassportSeries(selectedClient, "");
-                //        manager.setClientPassportNumber(selectedClient, "");
-                //    }
-                //    else
-                //        {
-                //        var passp = Formatter.clearString(textBoxPassport.Text);
-                //        manager.setClientPassportNumber(selectedClient, passp.Substring(0, 4));
-                //        manager.setClientPassportSeries(selectedClient, passp.Substring(4, 6));
-                //    }
-
-                //MessageBox.Show($"{selectedClient.getPassport()}, {textBoxPassport.Text}");
                 TextUpdate();
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
                 SelectNextControl((Control)sender, true, true, true, true);
-                //}
-                //else
-                //{
-                //    MessageBox.Show(text: "Введён неккоректный паспорт!", "Ошибка!");
-                //    TextUpdate();
-                //}
             }
         }
 
@@ -287,20 +229,6 @@ namespace Banking_app
                 clientIsEdit = true;
                 // Переводим фокус на следующий элемент
                 SelectNextControl((Control)sender, true, true, true, true);
-
-                //if (Checking.IsValidCard(textBoxBankCard.Text))
-                //{
-                //    manager.setClientBankCardNumber(selectedClient, Formatter.formattingBankCardNumber(textBoxBankCard.Text));
-                //    TextUpdate();
-                //    clientIsEdit = true;
-                //    // Переводим фокус на следующий элемент
-                //    SelectNextControl((Control)sender, true, true, true, true);
-                //}
-                //else
-                //{
-                //    MessageBox.Show(text: "Введён неправильный номер карты!", "Ошибка!");
-                //    TextUpdate();
-                //}
             }
         }
 

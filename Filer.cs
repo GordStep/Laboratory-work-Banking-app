@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Banking_app
 {
@@ -30,54 +31,63 @@ namespace Banking_app
     class ClientsSaver
     {
         
-        static public void AddClientToTXT(Client client, string dirInfo)
-        {
-            DirectoryInfo directInfo = new DirectoryInfo(dirInfo);
+        //static public void AddClientToTXT(Client client, string dirInfo)
+        //{
+        //    DirectoryInfo directInfo = new DirectoryInfo(dirInfo);
 
-            if (!directInfo.Exists)
-            {
-                directInfo.Create();
-                //Console.WriteLine($"Создана директория: {directInfo.FullName}");
-            }
+        //    if (!directInfo.Exists)
+        //    {
+        //        directInfo.Create();
+        //        //Console.WriteLine($"Создана директория: {directInfo.FullName}");
+        //    }
 
-            // true – в файл можно дописывать
-            try
-            {
-                StreamWriter streamwriter = new StreamWriter(@$"{dirInfo}\Clients.txt", true, System.Text.Encoding.GetEncoding("utf-8"));
-                streamwriter.WriteLine(client.Info());
-                streamwriter.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка: {ex.Message}", "Доступность файла");
-                return;
-            }
-            //Console.WriteLine($"Создан файл: {dirInfo}\\Clients.txt");
-        }
+        //    // true – в файл можно дописывать
+        //    try
+        //    {
+        //        StreamWriter streamwriter = new StreamWriter(@$"{dirInfo}\Clients.txt", true, System.Text.Encoding.GetEncoding("utf-8"));
+        //        streamwriter.WriteLine(client.Info());
+        //        streamwriter.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Ошибка: {ex.Message}", "Доступность файла");
+        //        return;
+        //    }
+        //    //Console.WriteLine($"Создан файл: {dirInfo}\\Clients.txt");
+        //}
 
-        static public void SaveClientsToTXT(List<Client> clients, string dirInfo, string fileName, bool rewriteFile = false)
+        static public void SaveClientsToTXT(List<Client> clients, 
+            string dirInfo, 
+            string fileName, 
+            int sh, 
+            bool rewriteFile = false)
         {
             clients.Sort();
             DirectoryInfo directInfo = new DirectoryInfo(dirInfo);
 
             string fullFileName = @$"{dirInfo}\{fileName}";
+            string fullDecrFileName = $"{dirInfo}\\cache.txt";
 
             if (!directInfo.Exists)
             {
                 directInfo.Create();
             }
 
-            // true – в файл можно дописывать
+            
             try
             {
+                if (File.ReadAllText(fullFileName) != "")
+                {
+                    Crypter.FileCeaserCipher(fullFileName, fullDecrFileName, -sh);
+                }
                 // Удаляем существующий файл
                 if (rewriteFile)
                 {
-                    File.WriteAllText(fullFileName, "");
+                    File.Delete(fullFileName);
                 }
                 //streamwriter.Close();
 
-                StreamWriter file = new StreamWriter(fullFileName, true, System.Text.Encoding.GetEncoding("utf-8"));
+                StreamWriter file = new StreamWriter(fullDecrFileName, true, System.Text.Encoding.GetEncoding("utf-8")); // true – в файл можно дописывать
 
                 foreach (var c in clients)
                 {
@@ -85,6 +95,8 @@ namespace Banking_app
                     //Console.WriteLine(c.Info());
                 }
                 file.Close();
+                Crypter.FileCeaserCipher(fullDecrFileName, fullFileName, sh);
+                //try { File.Delete(fullDecrFileName); } catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             }
             catch (Exception ex)
             {
@@ -96,17 +108,17 @@ namespace Banking_app
     }
     class ClientFileReader
     {
-        public static List<Client> ReadClientsFile(string fileName)
+        public static List<Client> ReadClientsFile(string fileName, string dectyptFileName, int sh)
         {
             var clients = new List<Client>();
             //MessageBox.Show("ищем файл: " + fileName);
             if (File.Exists(fileName))
             {
                 //Console.WriteLine("файл открыт: " + fileName);
+                if (File.ReadAllText(fileName) != "")
+                    Crypter.FileCeaserCipher(fileName, dectyptFileName, -sh);
 
-                //Crypter.DecryptFile(fileName, "decryptData.txt", );
-
-                StreamReader file = new StreamReader(fileName);
+                StreamReader file = new StreamReader(dectyptFileName);
                 string[] values; //
                 string newline; // считанная строка из файла
 
@@ -125,7 +137,7 @@ namespace Banking_app
                 // считываем до конца файла
                 while ((newline = file.ReadLine()) != null)
                 {
-                    values = newline.Split(';'); // строку разбиваем на части(lastname, firstname и т.д.), используя разделить пробел Split(' ')
+                    values = newline.Split(';'); // строку разбиваем на части(lastname, firstname и т.д.), используя разделить точку с запятой Split(';')
 
                     bankAccountNumber = Convert.ToInt32(values[0]); // присваиваем ячейкам строки
                     firstName = values[1]; // присваиваем ячейкам строки
@@ -151,7 +163,7 @@ namespace Banking_app
                         clients.Add(c);
                 }
                 file.Close();
-
+                //File.Delete(dectyptFileName);
                 clients.Sort();
             }
             else { MessageBox.Show("Файл не существует: " + fileName, "Ошибка!"); }

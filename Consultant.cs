@@ -20,7 +20,6 @@ namespace Banking_app
             this.patronymic = patronymic;
         }
 
-
         // Функции получения информации о сотруднике
         public int getId()
         {
@@ -58,40 +57,5 @@ namespace Banking_app
                 return "-";
             else return client.getPatronymic();
         }
-
-        // Закрытая для консультанта информация
-
-        //
-        //public string getClientPassportNumber(Client client)
-        //{
-        //    if (client.getPassportNumber().Length == 0)
-        //        return "-";
-        //    else return string.Concat(Enumerable.Repeat("*", client.getPassportNumber().Length));
-        //}
-        //public string getClientPassportSeries(Client client)
-        //{
-        //    if (client.getPassportNumber().Length == 0)
-        //        return "-";
-        //    else return string.Concat(Enumerable.Repeat("*", client.getPassportSeries().Length));
-        //}
-        //
-        //public string getClientPassport(Client client)
-        //{
-        //    if (Formatter.clearString(client.getPassport()).Length == 0)
-        //        return "-";
-        //    else return string.Concat(Enumerable.Repeat("*", client.getPassport().Length));
-        //}
-        //public string getClientBankAccountNumber(Client client)
-        //{
-        //    if (client.getBankAccountNumber().ToString().Length == 0)
-        //        return "-";
-        //    else return client.getBankAccountNumber().ToString();
-        //}
-        //public string getClientBankCardNumber(Client client)
-        //{
-        //    if (Formatter.clearString(client.getBankCardNumber()).Length == 0)
-        //        return "-";
-        //    else return string.Concat(Enumerable.Repeat("*", client.getBankCardNumber().Length));
-        //}
     }
 }
