@@ -56,10 +56,9 @@ namespace Banking_app
                 textBoxLastName.Text = selectedClient.getLastName();
                 textBoxPatronymic.Text = selectedClient.getPatronymic();
 
-                textBoxPhoneNumber.Text = Formatter.formattingPhoneNumber(selectedClient.getPhoneNumber());
-                textBoxPassport.Text = Formatter.formattingPassport(selectedClient.getPassport());
-                textBoxBankCard.Text = Formatter.formattingBankCardNumber(selectedClient.getBankCardNumber());
-
+                textBoxPhoneNumber.Text = selectedClient.getPhoneNumber();
+                textBoxPassport.Text = selectedClient.getPassport();
+                textBoxBankCard.Text = selectedClient.getBankCardNumber();
                 labelTextUserId.Text = selectedClient.getBankAccountNumber().ToString();
             }
         }
@@ -80,14 +79,17 @@ namespace Banking_app
 
                 if (clientIsEdit)
                 {
-                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()}"+ 
+                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()}" +
                         $" изменил данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
                 }
                 else
                 {
-                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()}" + 
+                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()}" +
                         $" просматривал данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
                 }
+                mainForm.UpdateClientsDataInFile();
+                mainForm.UpdateClientsDataFromFile();
+                mainForm.RedactMenuClose();
             }
         }
 
@@ -272,7 +274,7 @@ namespace Banking_app
                 try
                 {
                     selectedClient.setBankCardNumber(textBoxBankCard.Text);
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -300,6 +302,27 @@ namespace Banking_app
                 //    TextUpdate();
                 //}
             }
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            selectedClient.setFirstName(textBoxFirstName.Text);
+            selectedClient.setLastName(textBoxLastName.Text);
+            selectedClient.setPatronymic(textBoxPatronymic.Text);
+
+            try
+            {
+                selectedClient.setPhoneNumber(textBoxPhoneNumber.Text);
+                selectedClient.setPassport(textBoxPassport.Text);
+                selectedClient.setBankCardNumber(textBoxBankCard.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(text: $"{ex.Message}", "Ошибка!");
+                TextUpdate();
+                return;
+            }
+            this.Close();
         }
     }
 }

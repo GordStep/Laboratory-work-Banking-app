@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace Banking_app
 {
-    internal class Client: Person
+    internal class Client: Person, IComparable<Client>
     {
         private string phone_number;
-
-        //private string passport_number;
-        //private string passport_series;
-
         private string passport;
-
         private int bank_account_number;
         private string bank_card_number;
 
@@ -26,11 +21,7 @@ namespace Banking_app
             patronymic = "";
 
             phone_number =      "";
-            //passport_number =   "";
-            //passport_series =   "";
-
-            passport = "";
-
+            passport =          "";
             bank_card_number =  "";
             this.bank_account_number = bank_account_number; 
         }
@@ -49,13 +40,7 @@ namespace Banking_app
             this.patronymic = patronymic;
 
             this.phone_number =     Formatter.clearString(phone_number);
-
-
-            //this.passport_number =  Formatter.clearString(passport_number);
-            //this.passport_series =  Formatter.clearString(passport_series);
             this.passport = Formatter.clearString(passport);
-            //this.passport = this.passport_series + this.passport_number;
-
             this.bank_card_number = Formatter.clearString(bank_card_number);
 
             this.bank_account_number = bank_account_number;
@@ -67,12 +52,29 @@ namespace Banking_app
         {
             return $"{last_name} {first_name[0]}. {patronymic[0]}.";
         }
+        public string Info()
+        {
+            var ph = phone_number;
+            var ps = passport;
+            var bc = bank_card_number;
+
+            if (ph.Length == 0)
+                ph = "-";
+            if (ps.Length == 0) 
+                ps = "-";
+            if (bc.Length == 0) 
+                bc = "-";
+
+            return bank_account_number + ";"
+                + first_name + ";"
+                + last_name + ";"
+                + patronymic + ";"
+                + ph + ";"
+                + ps + ";"
+                + bc;
+        }
 
         public string getPhoneNumber() { return Formatter.formattingPhoneNumber(phone_number); }
-        ////
-        //public string getPassportNumber() { return passport_number; }
-        //public string getPassportSeries() { return passport_series; }
-        ////
         public string getPassport() { return Formatter.formattingPassport(passport); }
         public string getBankCardNumber() { return Formatter.formattingBankCardNumber(bank_card_number); }
         public int getBankAccountNumber() {  return bank_account_number; }
@@ -89,20 +91,13 @@ namespace Banking_app
             {
                 phone_number = Formatter.clearString(new_phone_number);
             }
-            else throw new Exception("invalid phone number");
+            else throw new Exception("Неверный номер телефона!");
         }
-
-        ////
-        //public void setPassportNumber(string new_passport) { passport = Formatter.clearString(new_passport); }
-        //public void setPassportSeries(string new_passport_series) { passport_series = new_passport_series; }
-        ////
-
         public void setPassport(string new_passport)
         {
             if (Checking.isValidPassport(new_passport))
             {
                 passport = Formatter.clearString(new_passport);
-                //MessageBox.Show(passport);
             }
             else throw new Exception("Неверный паспорт.");
         }
@@ -116,5 +111,27 @@ namespace Banking_app
         }
 
         public void setBankAccountNumber(int new_bank_account_number) { bank_account_number = new_bank_account_number; }
+
+        public int CompareTo(Client obj)
+        {
+            int result = this.getBankAccountNumber().CompareTo(obj.getBankAccountNumber());
+            if (result == 0)
+                result = this.getBankAccountNumber().CompareTo(obj.getBankAccountNumber());
+            return result;
+        }
+
+        public bool IsEqual(Client client)
+        {
+            if (bank_account_number == client.bank_account_number)
+                return true; 
+            if (bank_card_number != "" && bank_card_number == client.bank_card_number)
+                return true;
+            if (passport != "" && passport  == client.passport)
+                return true;
+            if (phone_number != "" && phone_number == client.phone_number)
+                return true;
+
+            return false;
+        }
     }
 }

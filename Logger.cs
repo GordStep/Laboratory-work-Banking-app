@@ -10,8 +10,11 @@ namespace Banking_app
     {
         static public void WriteLog(string message)
         {
-            string LogFileName = "Bank_log.log";
+            string LogFileDir = @$"{Directory.GetCurrentDirectory().ToString()}\BankData";
+            string LogFileName = "BankData\\Bank_log.log";
             int sh = 5;
+
+            Filer.CreateDir(LogFileDir);
 
             string encrypted_message = CeaserCipher(message, sh);
 
@@ -32,7 +35,7 @@ namespace Banking_app
 
         public static void FileDecryption(string filePath, int sh)
         {
-            var unFile = File.CreateText("unencrypted_file.txt");
+            var unFile = File.CreateText("BankData\\unencrypted_file.txt");
             string text = File.ReadAllText($"{filePath}");
 
             unFile.Write(CeaserCipher(text, -sh));

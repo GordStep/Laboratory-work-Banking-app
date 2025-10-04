@@ -14,6 +14,7 @@ namespace Banking_app
             phone_number = Formatter.clearString(phone_number);
 
             if (phone_number.Length == 0) return true;
+            if (phone_number.Length != 11) return false;
 
             foreach (char c in phone_number)
                 if (c < '0' || c > '9') return false;

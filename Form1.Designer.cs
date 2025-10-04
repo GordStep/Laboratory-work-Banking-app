@@ -32,6 +32,7 @@
             ConsultantButton = new RadioButton();
             managerButton = new RadioButton();
             listView1 = new ListView();
+            buttonCreateNewClient = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -77,15 +78,28 @@
             // 
             listView1.Location = new Point(12, 12);
             listView1.Name = "listView1";
-            listView1.Size = new Size(610, 420);
+            listView1.Size = new Size(410, 420);
             listView1.TabIndex = 1;
             listView1.UseCompatibleStateImageBehavior = false;
+            listView1.MouseClick += listView1_MouseClick;
+            // 
+            // buttonCreateNewClient
+            // 
+            buttonCreateNewClient.BackColor = SystemColors.ButtonHighlight;
+            buttonCreateNewClient.Location = new Point(632, 387);
+            buttonCreateNewClient.Name = "buttonCreateNewClient";
+            buttonCreateNewClient.Size = new Size(160, 45);
+            buttonCreateNewClient.TabIndex = 2;
+            buttonCreateNewClient.Text = "Добавить клиента";
+            buttonCreateNewClient.UseVisualStyleBackColor = false;
+            buttonCreateNewClient.Click += buttonCreateNewClient_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(804, 441);
+            Controls.Add(buttonCreateNewClient);
             Controls.Add(listView1);
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -103,5 +117,6 @@
         private RadioButton ConsultantButton;
         private RadioButton managerButton;
         private ListView listView1;
+        private Button buttonCreateNewClient;
     }
 }

@@ -42,6 +42,7 @@
             textBoxPassport = new TextBox();
             textBoxBankCard = new TextBox();
             labelTextUserId = new Label();
+            buttonSave = new Button();
             SuspendLayout();
             // 
             // labelUserFirstName
@@ -178,11 +179,24 @@
             labelTextUserId.TabIndex = 14;
             labelTextUserId.Text = "id";
             // 
+            // buttonSave
+            // 
+            buttonSave.BackColor = SystemColors.ActiveCaption;
+            buttonSave.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonSave.Location = new Point(180, 349);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(184, 67);
+            buttonSave.TabIndex = 15;
+            buttonSave.Text = "Сохранить";
+            buttonSave.UseVisualStyleBackColor = false;
+            buttonSave.Click += buttonSave_Click;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 441);
+            Controls.Add(buttonSave);
             Controls.Add(labelTextUserId);
             Controls.Add(textBoxBankCard);
             Controls.Add(textBoxPassport);
@@ -222,5 +236,6 @@
         private TextBox textBoxPassport;
         private TextBox textBoxBankCard;
         private Label labelTextUserId;
+        private Button buttonSave;
     }
 }

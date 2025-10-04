@@ -1,5 +1,6 @@
 using Microsoft.VisualBasic.Logging;
 using System.Numerics;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace Banking_app
 {
@@ -10,54 +11,14 @@ namespace Banking_app
 
         bool managerNow = true;
 
-        List<Client> clients = new List<Client>
-        {
-            new Client(
-                bank_account_number: 100001,
-                first_name: "Иван",
-                last_name: "Петров",
-                patronymic: "Сергеевич",
-                phone_number: "+7(912)345-67-89",
-                passport: "4501123456",
-                bank_card_number: "2200770870352830"
-            ),
-            new Client(
-                bank_account_number: 100002,
-                first_name: "Мария",
-                last_name: "Иванова",
-                patronymic: "Александровна",
-                phone_number: "+7(923)456-78-90",
-                passport: "4502654321",
-                bank_card_number: "5276-8800-2345-6789"
-            ),
-            new Client(
-                bank_account_number: 100003,
-                first_name: "Алексей",
-                last_name: "Сидоров",
-                patronymic: "Владимирович",
-                phone_number: "+7(934)567-89-01",
-                passport: "4503789012",
-                bank_card_number: "4276-8800-3456-7890"
-            ),
-            new Client(
-                bank_account_number: 100004,
-                first_name: "Екатерина",
-                last_name: "Смирнова",
-                patronymic: "Дмитриевна",
-                phone_number: "+7(945)678-90-12",
-                passport: "4504890123",
-                bank_card_number: "5276-8800-4567-8901"
-            ),
-            new Client(
-                bank_account_number: 100005,
-                first_name: "Дмитрий",
-                last_name: "Козлов",
-                patronymic: "Олегович",
-                phone_number: "+7(956)789-01-23",
-                passport: "4505901234",
-                bank_card_number: "4276-8800-5678-9012"
-            )
-        };
+        int nowMaxId = 0;
+
+        static string dirClientInfo = @$"{Directory.GetCurrentDirectory().ToString()}\BankData";
+        static string clientInfoFileName = "\\Clients.txt";
+        static string fullFileName = dirClientInfo + clientInfoFileName;
+        List<Client> clients = new List<Client>();
+
+        
 
         public MainForm()
         {
@@ -68,9 +29,10 @@ namespace Banking_app
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            //UpdateClientsData();
+            Filer.CreateDir(dirClientInfo);
+            //DebuggingInfo();
         }
-
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
@@ -96,15 +58,17 @@ namespace Banking_app
 
         private void SetupListView()
         {
+            UpdateClientsDataFromFile();
+
             listView1.View = View.Tile;
-            listView1.TileSize = new Size(600, 60);
+            listView1.TileSize = new Size(300, 60);
 
             // Добавление колонок для отображения данных
             listView1.Columns.Add("Title", 100);
             listView1.Columns.Add("Description", 300);
 
             // Добавление элементов
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < clients.Count(); i++)
             {
                 //var item = new ListViewItem($"Плитка {i}");
 
@@ -127,16 +91,19 @@ namespace Banking_app
         {
             // Обработка двойного клика
             listView1.DoubleClick += ListView1_DoubleClick;
+            //listView1.MouseClick += listView1_MouseClick;
         }
         // работа 
         private void ListView1_DoubleClick(object? sender, EventArgs e)
         {
-            if (managerNow) 
+            var selectedItem = listView1.SelectedItems[0];
+            if (managerNow)
             {
                 //MessageBox.Show("клик");
-                var selectedItem = listView1.SelectedItems[0];
+                //var selectedItem = listView1.SelectedItems[0];
 
                 //MessageBox.Show($"{clients[selectedItem.Index].getPassport()}");
+                RedactMenuOpen();
 
                 Form2 form = new Form2(clients[selectedItem.Index], manager);
                 form.Owner = this;
@@ -144,17 +111,17 @@ namespace Banking_app
             }
             else
             {
-                var selectedItem = listView1.SelectedItems[0];
+                //var selectedItem = listView1.SelectedItems[0];
 
                 var cl = clients[selectedItem.Index];
-                
+
 
                 MessageBox.Show(text: $"Фамилия: {cl.getLastName()} \n" +
                     $"Имя: {cl.getFirstName()} \n" +
                     $"Отчество: {cl.getPatronymic()} \n" +
                     $"Номер телефона: {Formatter.infoForConsultant(cl.getPhoneNumber())} \n" +
                     $"Паспорт: {Formatter.infoForConsultant(cl.getPassport())} \n" +
-                    $"Номер банковской карты: {Formatter.infoForConsultant(cl.getBankCardNumber())} \n" + 
+                    $"Номер банковской карты: {Formatter.infoForConsultant(cl.getBankCardNumber())} \n" +
                     $"Номер аккаунта: {cl.getBankAccountNumber()} \n",
 
                     "Просмотр данных о пользователе"
@@ -172,7 +139,8 @@ namespace Banking_app
             string phone_number,
             string bank_card_number,
             string passport
-            ) {
+            )
+        {
             foreach (Client client in clients)
             {
                 if (client.getBankAccountNumber() == bank_account_number)
@@ -181,15 +149,108 @@ namespace Banking_app
                     client.setLastName(last_name);
                     client.setPatronymic(patronymic);
                     client.setPhoneNumber(phone_number);
-                    //client.setPassportNumber(passport_number);
-                    //client.setPassportSeries(passport_series);
                     client.setBankCardNumber(bank_card_number);
                     client.setPassport(passport);
                 }
             }
 
             listView1.Clear();
+            UpdateClientsDataInFile();
             SetupListView();
+        }
+
+
+        public void UpdateClientsDataFromFile()
+        {
+            //UpdateClientsDataInFile();
+
+            try
+            {
+                clients = ClientFileReader.ReadClientsFile(dirClientInfo + clientInfoFileName);
+                //MessageBox.Show($"{dirClientInfo + clientInfoFileName}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!");
+            }
+        }
+
+        public void UpdateClientsDataInFile()
+        {
+            ClientsSaver.SaveClientsToTXT(clients, dirClientInfo, clientInfoFileName, true);
+        }
+
+        public void UpdateMaxClientId()
+        {
+            int _maxClientId = 0;
+            foreach (var c in clients)
+            {
+                _maxClientId = int.Max(_maxClientId, c.getBankAccountNumber());
+            }
+
+            nowMaxId = int.Max(_maxClientId, nowMaxId);
+        }
+
+        private void listView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var selectedItem = listView1.SelectedItems[0];
+
+                DialogResult deleteIs = MessageBox.Show($"Удалить клиента: {selectedItem.Text}", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (deleteIs == DialogResult.Yes)
+                {
+
+                    for (int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        var num = selectedItem.SubItems[1].Text.Split(' ');
+                        int selectedId = Convert.ToInt32(num[num.Length - 1]);
+                        //MessageBox.Show(selectedId.ToString());
+                        if (clients[i].getBankAccountNumber() == selectedId) // Удаление клиента из массива по Id
+                        {
+                            clients.RemoveAt(i);
+                            UpdateClientsDataInFile();
+                            break;
+                        }
+                    }
+                    listView1.Items.Remove(selectedItem);
+                    
+                }
+            }
+        }
+
+        private void buttonCreateNewClient_Click(object sender, EventArgs e)
+        {
+            UpdateMaxClientId();
+
+            RedactMenuOpen();
+            //buttonCreateNewClient.Enabled = false;
+
+            Client newClient = new(nowMaxId + 1);
+            nowMaxId++;
+
+            clients.Add(newClient);
+
+            Form2 form = new Form2(clients[clients.Count - 1], manager);
+            form.Owner = this;
+            form.Show();
+        }
+        public void RedactMenuClose()
+        {
+            buttonCreateNewClient.Enabled = true;
+        }
+        public void RedactMenuOpen()
+        {
+            buttonCreateNewClient.Enabled = false;
+        }
+
+        public void DebuggingInfo()
+        {
+            MessageBox.Show($"dirClientsInfo: {dirClientInfo}\n" +
+                $"clientInfoFileName: {clientInfoFileName}" +
+                $"Текущая директория: {Directory.GetCurrentDirectory().ToString()}"
+                );
         }
     }
 }
