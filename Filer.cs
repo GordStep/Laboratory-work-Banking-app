@@ -66,36 +66,29 @@ namespace Banking_app
             DirectoryInfo directInfo = new DirectoryInfo(dirInfo);
 
             string fullFileName = @$"{dirInfo}\{fileName}";
-            string fullDecrFileName = $"{dirInfo}\\cache.txt";
+            //string fullDecrFileName = $"{dirInfo}\\cache.txt";
 
             if (!directInfo.Exists)
             {
                 directInfo.Create();
             }
 
-            
+            //MessageBox.Show(fullFileName);
+
             try
             {
-                if (File.ReadAllText(fullFileName) != "")
-                {
-                    Crypter.FileCeaserCipher(fullFileName, fullDecrFileName, -sh);
-                }
-                // Удаляем существующий файл
-                if (rewriteFile)
-                {
-                    File.Delete(fullFileName);
-                }
-                //streamwriter.Close();
-
-                StreamWriter file = new StreamWriter(fullDecrFileName, true, System.Text.Encoding.GetEncoding("utf-8")); // true – в файл можно дописывать
-
+                File.Delete(fullFileName);
+                StreamWriter file = new StreamWriter(fullFileName, true, System.Text.Encoding.GetEncoding("utf-8")); // true – в файл можно дописывать
+                var message = "";
                 foreach (var c in clients)
                 {
-                    file.WriteLine(c.Info());
                     //Console.WriteLine(c.Info());
+                    message += c.Info() + "\n";
+                    var cryptMessage = Crypter.StringCeaserCipher(message, sh);
+                    file.WriteLine(cryptMessage);
                 }
                 file.Close();
-                Crypter.FileCeaserCipher(fullDecrFileName, fullFileName, sh);
+                //MessageBox.Show(File.ReadAllText(fullFileName));
                 //try { File.Delete(fullDecrFileName); } catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             }
             catch (Exception ex)
@@ -114,9 +107,16 @@ namespace Banking_app
             //MessageBox.Show("ищем файл: " + fileName);
             if (File.Exists(fileName))
             {
+                var decryptMessage = "";
                 //Console.WriteLine("файл открыт: " + fileName);
-                if (File.ReadAllText(fileName) != "")
-                    Crypter.FileCeaserCipher(fileName, dectyptFileName, -sh);
+                var text = File.ReadAllText(fileName);
+
+                if ( text != "" )
+                    decryptMessage = Crypter.StringCeaserCipher(text, -sh);
+                else
+                    File.Create(dectyptFileName).Close();
+
+                File.WriteAllText(dectyptFileName, decryptMessage);
 
                 StreamReader file = new StreamReader(dectyptFileName);
                 string[] values; //
@@ -138,6 +138,7 @@ namespace Banking_app
                 while ((newline = file.ReadLine()) != null)
                 {
                     values = newline.Split(';'); // строку разбиваем на части(lastname, firstname и т.д.), используя разделить точку с запятой Split(';')
+                    if (newline.Length == 0 ) continue;
 
                     bankAccountNumber = Convert.ToInt32(values[0]); // присваиваем ячейкам строки
                     firstName = values[1]; // присваиваем ячейкам строки
@@ -167,7 +168,7 @@ namespace Banking_app
                 clients.Sort();
             }
             else { MessageBox.Show("Файл не существует: " + fileName, "Ошибка!"); }
-
+            //File.Create(fileName).Close();
             return clients;
         }
     }

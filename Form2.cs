@@ -71,16 +71,16 @@ namespace Banking_app
 
                 if (clientIsEdit)
                 {
-                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()}" +
+                    Logger.WriteLog($"Менеджер [номер: {manager.getId()} ФИО: {manager.ToString()}]" +
                         $" изменил данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
                 }
                 else
                 {
-                    Logger.WriteLog($"Менеджер номер: {manager.getId()} ФИО: {manager.ToString()}" +
+                    Logger.WriteLog($"Менеджер [номер: {manager.getId()} ФИО: {manager.ToString()}]" +
                         $" просматривал данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
                 }
-                mainForm.UpdateClientsDataInFile();
-                mainForm.UpdateClientsDataFromFile();
+                //mainForm.UpdateClientsDataInFile();
+                //mainForm.UpdateClientsDataFromFile();
                 mainForm.RedactMenuClose();
             }
         }

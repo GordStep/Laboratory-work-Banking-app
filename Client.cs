@@ -71,7 +71,7 @@ namespace Banking_app
                 + patronymic + ";"
                 + ph + ";"
                 + ps + ";"
-                + bc;
+                + bc + ";";
         }
 
         public string getPhoneNumber() { return Formatter.formattingPhoneNumber(phone_number); }
