@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             groupBox1 = new GroupBox();
             ConsultantButton = new RadioButton();
             managerButton = new RadioButton();
@@ -103,6 +104,7 @@
             Controls.Add(listView1);
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             Text = "Banking app";
             Load += MainForm_Load;

@@ -28,75 +28,75 @@ namespace Banking_app
             return new string(buffer);
         }
 
-        public static void FileCeaserCipher(string inputFileName, string outputFileName, int shift)
-        {
+        //public static void FileCeaserCipher(string inputFileName, string outputFileName, int shift)
+        //{
             
-            string inputText, outputText;
-            try
-            {
-                inputText = File.ReadAllText(inputFileName);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Памылка!"); return; }
+        //    string inputText, outputText;
+        //    try
+        //    {
+        //        inputText = File.ReadAllText(inputFileName);
+        //    }
+        //    catch (Exception ex) { MessageBox.Show(ex.Message, "Памылка!"); return; }
             
-            char[] buffer = inputText.ToCharArray();
+        //    char[] buffer = inputText.ToCharArray();
 
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                if (char.IsLetter(buffer[i]))
-                {
-                    char startLetter = 'а';
-                    if (char.IsUpper(buffer[i])) startLetter = 'А';
+        //    for (int i = 0; i < buffer.Length; i++)
+        //    {
+        //        if (char.IsLetter(buffer[i]))
+        //        {
+        //            char startLetter = 'а';
+        //            if (char.IsUpper(buffer[i])) startLetter = 'А';
 
-                    int char_ind = buffer[i] - startLetter;
+        //            int char_ind = buffer[i] - startLetter;
 
-                    buffer[i] = (char)((((buffer[i] + shift) - startLetter + 33) % 33) + startLetter);
-                }
-            }
-            outputText = new string(buffer);
+        //            buffer[i] = (char)((((buffer[i] + shift) - startLetter + 33) % 33) + startLetter);
+        //        }
+        //    }
+        //    outputText = new string(buffer);
 
-            MessageBox.Show(outputText, "Памылка!");
+        //    MessageBox.Show(outputText, "Памылка!");
 
-            try
-            {
-                File.WriteAllText(outputFileName, outputText);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Памылка!"); return; }
-            MessageBox.Show(File.ReadAllText(outputFileName));
-        }
+        //    try
+        //    {
+        //        File.WriteAllText(outputFileName, outputText);
+        //    }
+        //    catch (Exception ex) { MessageBox.Show(ex.Message, "Памылка!"); return; }
+        //    MessageBox.Show(File.ReadAllText(outputFileName));
+        //}
 
-        public static void FileCeaserDeCipher(string inputFileName, string outputFileName, int shift)
-        {
-            shift *= -1;
+        //public static void FileCeaserDeCipher(string inputFileName, string outputFileName, int shift)
+        //{
+        //    shift *= -1;
 
-            string inputText, outputText;
-            try
-            {
-                inputText = File.ReadAllText(inputFileName);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Памылка!"); return; }
+        //    string inputText, outputText;
+        //    try
+        //    {
+        //        inputText = File.ReadAllText(inputFileName);
+        //    }
+        //    catch (Exception ex) { MessageBox.Show(ex.Message, "Памылка!"); return; }
 
-            char[] buffer = inputText.ToCharArray();
+        //    char[] buffer = inputText.ToCharArray();
 
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                if (char.IsLetter(buffer[i]))
-                {
-                    char startLetter = 'а';
-                    if (char.IsUpper(buffer[i])) startLetter = 'А';
+        //    for (int i = 0; i < buffer.Length; i++)
+        //    {
+        //        if (char.IsLetter(buffer[i]))
+        //        {
+        //            char startLetter = 'а';
+        //            if (char.IsUpper(buffer[i])) startLetter = 'А';
 
-                    int char_ind = buffer[i] - startLetter;
+        //            int char_ind = buffer[i] - startLetter;
 
-                    buffer[i] = (char)((((buffer[i] + shift) - startLetter + 33) % 33) + startLetter);
-                }
-            }
-            outputText = new string(buffer);
+        //            buffer[i] = (char)((((buffer[i] + shift) - startLetter + 33) % 33) + startLetter);
+        //        }
+        //    }
+        //    outputText = new string(buffer);
 
-            try
-            {
-                File.WriteAllText(outputFileName, outputText);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Памылка!"); return; }
-        }
+        //    try
+        //    {
+        //        File.WriteAllText(outputFileName, outputText);
+        //    }
+        //    catch (Exception ex) { MessageBox.Show(ex.Message, "Памылка!"); return; }
+        //}
         //private static byte[] GetIV(string ivSecret)
         //{
         //    using MD5 md5 = MD5.Create();

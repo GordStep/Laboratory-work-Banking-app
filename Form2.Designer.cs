@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             labelUserFirstName = new Label();
             labelUserLastName = new Label();
             labelUserPatronymic = new Label();
@@ -212,6 +213,7 @@
             Controls.Add(labelUserLastName);
             Controls.Add(labelUserFirstName);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form2";
             Text = "Информация о клиенте";
             FormClosed += Form2_FormClosed;
