@@ -1,6 +1,6 @@
 **ЗАДАНИЕ**
 
-<img width="886" height="532" alt="{18675D6C-FCAB-4B02-8B57-167C6D335F18}" src="https://github.com/user-attachments/assets/ddc82450-95d6-4f9a-8bed-7af009193c89" />
+<img width="806" height="473" alt="{DAE27BF2-97ED-4D31-8385-79375F541243}" src="https://github.com/user-attachments/assets/aa952db5-cd4d-473c-98af-683f2bbb3fa1" />
 
 Для банка «А» необходимо разработать программу для работы с данными клиента.
 Банк «А» хранит данные клиентов: 
@@ -40,8 +40,9 @@
 - Шифрование файла с данными клиентов
 - Добавление поддержки большего числа сотрудников
 
-<img width="654" height="527" alt="{873439B9-30A0-4FB9-A107-2EB1709728C8}" src="https://github.com/user-attachments/assets/93ca5d59-b068-48cb-825a-521f5ab82040" />
-<img width="290" height="238" alt="{694B6BAA-8B75-42DD-9CFC-9BFD728F49B8}" src="https://github.com/user-attachments/assets/c6d4b30f-30bc-4a6f-8e62-0eb67d16bee1" />
+<img width="586" height="473" alt="{1E6D4981-05C2-442E-B452-9A184D5D7E68}" src="https://github.com/user-attachments/assets/bd5e87ec-50e9-417f-a6cb-94aa76fea4bd" />
+<img width="271" height="211" alt="{585967B3-07D1-4EF4-BCDE-83339277BDCC}" src="https://github.com/user-attachments/assets/316d60a1-d16c-4cac-b4b1-91ebc9149ead" />
+
 
 
 
