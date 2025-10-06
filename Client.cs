@@ -81,9 +81,9 @@ namespace Banking_app
         
 
         // Изменение данных клиента
-        public void setFirstName(string new_first_name) { first_name = new_first_name; }
-        public void setLastName(string new_last_name) { last_name = new_last_name; }
-        public void setPatronymic(string new_patronymic) { patronymic = new_patronymic; }
+        public void setFirstName(string new_first_name) { first_name = new_first_name.Trim(); }
+        public void setLastName(string new_last_name) { last_name = new_last_name.Trim(); }
+        public void setPatronymic(string new_patronymic) { patronymic = new_patronymic.Trim(); }
 
         public void setPhoneNumber(string new_phone_number)
         {

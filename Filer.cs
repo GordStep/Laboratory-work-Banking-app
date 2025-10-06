@@ -78,16 +78,23 @@ namespace Banking_app
             try
             {
                 File.Delete(fullFileName);
+                File.WriteAllText(fullFileName, "");
+                var a = File.ReadAllText(fullFileName);
+                MessageBox.Show(a);
+
                 StreamWriter file = new StreamWriter(fullFileName, true, System.Text.Encoding.GetEncoding("utf-8")); // true – в файл можно дописывать
                 var message = "";
                 foreach (var c in clients)
                 {
-                    //Console.WriteLine(c.Info());
-                    message += c.Info() + "\n";
+                    //MessageBox.Show(c.Info());
+                    message = c.Info() + "\n";
                     var cryptMessage = Crypter.StringCeaserCipher(message, sh);
                     file.WriteLine(cryptMessage);
                 }
                 file.Close();
+
+                var b = File.ReadAllText(fullFileName);
+                MessageBox.Show(b);
                 //MessageBox.Show(File.ReadAllText(fullFileName));
                 //try { File.Delete(fullDecrFileName); } catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             }
