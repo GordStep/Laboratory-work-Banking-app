@@ -79,8 +79,8 @@ namespace Banking_app
             {
                 File.Delete(fullFileName);
                 File.WriteAllText(fullFileName, "");
-                var a = File.ReadAllText(fullFileName);
-                MessageBox.Show(a);
+                //var a = File.ReadAllText(fullFileName);
+                //MessageBox.Show(a);
 
                 StreamWriter file = new StreamWriter(fullFileName, true, System.Text.Encoding.GetEncoding("utf-8")); // true – в файл можно дописывать
                 var message = "";
@@ -93,8 +93,8 @@ namespace Banking_app
                 }
                 file.Close();
 
-                var b = File.ReadAllText(fullFileName);
-                MessageBox.Show(b);
+                //var b = File.ReadAllText(fullFileName);
+                //MessageBox.Show(b);
                 //MessageBox.Show(File.ReadAllText(fullFileName));
                 //try { File.Delete(fullDecrFileName); } catch (Exception ex) { MessageBox.Show(ex.Message); return; }
             }

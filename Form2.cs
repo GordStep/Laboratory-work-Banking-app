@@ -59,57 +59,74 @@ namespace Banking_app
         {
             if (this.Owner is MainForm mainForm)
             {
-                mainForm.setClientData(
-                selectedClient.getBankAccountNumber(),
-                selectedClient.getFirstName(),
-                selectedClient.getLastName(),
-                selectedClient.getPatronymic(),
-                selectedClient.getPhoneNumber(),
-                selectedClient.getBankCardNumber(),
-                selectedClient.getPassport()
-                );
+                if (selectedClient.getLastName() != "" || selectedClient.getFirstName() != "" || selectedClient.getPatronymic() != "")
+                {
+                    mainForm.setClientData(
+                        selectedClient.getBankAccountNumber(),
+                        selectedClient.getFirstName(),
+                        selectedClient.getLastName(),
+                        selectedClient.getPatronymic(),
+                        selectedClient.getPhoneNumber(),
+                        selectedClient.getBankCardNumber(),
+                        selectedClient.getPassport()
+                    );
 
-                if (clientIsEdit)
-                {
-                    Logger.WriteLog($"Менеджер [номер: {manager.getId()} ФИО: {manager.ToString()}]" +
-                        $" изменил данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
+                    if (clientIsEdit)
+                    {
+                        Logger.WriteLog($"Менеджер [номер: {manager.getId()} ФИО: {manager.ToString()}]" +
+                            $" изменил данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
+                    }
+                    else
+                    {
+                        Logger.WriteLog($"Менеджер [номер: {manager.getId()} ФИО: {manager.ToString()}]" +
+                            $" просматривал данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
+                    }
                 }
-                else
-                {
-                    Logger.WriteLog($"Менеджер [номер: {manager.getId()} ФИО: {manager.ToString()}]" +
-                        $" просматривал данные о клиенте номер: {selectedClient.getBankAccountNumber()}\n");
-                }
-                //mainForm.UpdateClientsDataInFile();
-                //mainForm.UpdateClientsDataFromFile();
                 mainForm.RedactMenuClose();
+                mainForm.ClearClientsDataInfo();
             }
+        }
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (textBoxFirstName.Text != "")
+                selectedClient.setFirstName(textBoxFirstName.Text);
+            else
+            {
+                MessageBox.Show("Имя не должно быть пустым!", "Ошибка ввода!");
+                return;
+            }
+            if (textBoxLastName.Text != "")
+                selectedClient.setLastName(textBoxLastName.Text);
+            else
+            { 
+                MessageBox.Show("Фамилия не должна быть пустой!", "Ошибка ввода!");
+                return;
+            }
+            if (textBoxPatronymic.Text != "")
+                selectedClient.setPatronymic(textBoxPatronymic.Text);
+            else
+            {
+                MessageBox.Show("Отчество не должно быть пустым!", "Ошибка ввода!");
+                return;
+            }
+
+            try
+            {
+                selectedClient.setPhoneNumber(textBoxPhoneNumber.Text);
+                selectedClient.setPassport(textBoxPassport.Text);
+                selectedClient.setBankCardNumber(textBoxBankCard.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(text: $"{ex.Message}", "Ошибка!");
+                TextUpdate();
+                return;
+            }
+            this.Close();
         }
 
         // Обработка textBox
-
-        private void textBoxPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                e.Handled = true; // Предотвращаем стандартное поведение
-
-                try
-                {
-                    selectedClient.setPhoneNumber(textBoxPhoneNumber.Text);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(text: $"{ex.Message}", "Ошибка!");
-                    TextUpdate();
-                    return;
-                }
-
-                TextUpdate();
-                clientIsEdit = true;
-                // Переводим фокус на следующий элемент
-                SelectNextControl((Control)sender, true, true, true, true);
-            }
-        }
+        
 
         private void textBoxLastName_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -119,7 +136,10 @@ namespace Banking_app
 
                 try
                 {
-                    selectedClient.setLastName(textBoxLastName.Text);
+                    if (textBoxLastName.Text != "")
+                        selectedClient.setLastName(textBoxLastName.Text);
+                    else
+                        MessageBox.Show("Фамилия не должна быть пустой");
                 }
                 catch (Exception ex)
                 {
@@ -143,7 +163,9 @@ namespace Banking_app
 
                 try
                 {
-                    selectedClient.setFirstName(textBoxFirstName.Text);
+                    if (textBoxFirstName.Text != "")
+                        selectedClient.setFirstName(textBoxFirstName.Text);
+                    else MessageBox.Show("Имя не должно быть пустым");
                 }
                 catch (Exception ex)
                 {
@@ -167,7 +189,9 @@ namespace Banking_app
 
                 try
                 {
-                    selectedClient.setPatronymic(textBoxPatronymic.Text);
+                    if (textBoxPatronymic.Text != "")
+                        selectedClient.setPatronymic(textBoxPatronymic.Text);
+                    else MessageBox.Show("Отчество не должно быть пустым");
                 }
                 catch (Exception ex)
                 {
@@ -232,25 +256,29 @@ namespace Banking_app
             }
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void textBoxPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
-            selectedClient.setFirstName(textBoxFirstName.Text);
-            selectedClient.setLastName(textBoxLastName.Text);
-            selectedClient.setPatronymic(textBoxPatronymic.Text);
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Предотвращаем стандартное поведение
 
-            try
-            {
-                selectedClient.setPhoneNumber(textBoxPhoneNumber.Text);
-                selectedClient.setPassport(textBoxPassport.Text);
-                selectedClient.setBankCardNumber(textBoxBankCard.Text);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(text: $"{ex.Message}", "Ошибка!");
+                try
+                {
+                    selectedClient.setPhoneNumber(textBoxPhoneNumber.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(text: $"{ex.Message}", "Ошибка!");
+                    TextUpdate();
+                    return;
+                }
+
                 TextUpdate();
-                return;
+                clientIsEdit = true;
+                // Переводим фокус на следующий элемент
+                SelectNextControl((Control)sender, true, true, true, true);
             }
-            this.Close();
         }
+
     }
 }

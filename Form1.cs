@@ -107,6 +107,7 @@ namespace Banking_app
 
                 //MessageBox.Show($"{clients[selectedItem.Index].getPassport()}");
                 RedactMenuOpen();
+                UpdateMaxClientId();
 
                 Form2 form = new Form2(clients[selectedItem.Index], manager);
                 form.Owner = this;
@@ -177,6 +178,17 @@ namespace Banking_app
                 MessageBox.Show(ex.Message, "Ошибка!");
             }
         }
+        public void ClearClientsDataInfo()
+        {
+            for (int i = 0; i < clients.Count; i++)
+            {
+                if (clients[i].getFirstName() == "" || clients[i].getLastName() == "" || clients[i].getPatronymic() == "")
+                {
+                    clients.RemoveAt(i);
+                    break;
+                }
+            }
+        }
 
         public void UpdateClientsDataInFile()
         {
@@ -228,10 +240,8 @@ namespace Banking_app
             UpdateMaxClientId();
 
             RedactMenuOpen();
-            //buttonCreateNewClient.Enabled = false;
 
             Client newClient = new(nowMaxId + 1);
-            nowMaxId++;
 
             clients.Add(newClient);
 
