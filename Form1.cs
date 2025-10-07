@@ -47,6 +47,7 @@ namespace Banking_app
                     managerNow = true;
                     listView1.Clear();
                     SetupListView();
+                    EnableAddButton();
                 }
                 if (radioButton.Text.Equals("Консультант"))
                 {
@@ -54,6 +55,7 @@ namespace Banking_app
                     managerNow = false;
                     listView1.Clear();
                     SetupListView();
+                    BlockAddButton();
                 }
             }
 
@@ -256,6 +258,17 @@ namespace Banking_app
         public void RedactMenuOpen()
         {
             buttonCreateNewClient.Enabled = false;
+        }
+
+        public void BlockAddButton()
+        {
+            buttonCreateNewClient.Enabled = false;
+            buttonCreateNewClient.Visible = false;
+        }
+        public void EnableAddButton()
+        {
+            buttonCreateNewClient.Enabled = true;
+            buttonCreateNewClient.Visible = true;
         }
 
         public void DebuggingInfo()

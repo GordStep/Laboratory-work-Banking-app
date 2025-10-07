@@ -88,18 +88,18 @@ namespace Banking_app
         }
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (textBoxLastName.Text != "")
+                selectedClient.setLastName(textBoxLastName.Text);
+            else
+            {
+                MessageBox.Show("Фамилия не должна быть пустой!", "Ошибка ввода!");
+                return;
+            }
             if (textBoxFirstName.Text != "")
                 selectedClient.setFirstName(textBoxFirstName.Text);
             else
             {
                 MessageBox.Show("Имя не должно быть пустым!", "Ошибка ввода!");
-                return;
-            }
-            if (textBoxLastName.Text != "")
-                selectedClient.setLastName(textBoxLastName.Text);
-            else
-            { 
-                MessageBox.Show("Фамилия не должна быть пустой!", "Ошибка ввода!");
                 return;
             }
             if (textBoxPatronymic.Text != "")
