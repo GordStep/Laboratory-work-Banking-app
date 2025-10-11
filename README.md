@@ -1,6 +1,6 @@
 **ЗАДАНИЕ**
 
-<img width="806" height="473" alt="{DAE27BF2-97ED-4D31-8385-79375F541243}" src="https://github.com/user-attachments/assets/aa952db5-cd4d-473c-98af-683f2bbb3fa1" />
+<img width="806" height="473" alt="{27D2BF3C-6AB7-429E-AB8A-27B688AEA996}" src="https://github.com/user-attachments/assets/b9de122e-ad9f-48bb-9ceb-c5a9812484c8" />
 
 Для банка «А» необходимо разработать программу для работы с данными клиента.
 Банк «А» хранит данные клиентов: 
