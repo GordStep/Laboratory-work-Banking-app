@@ -34,6 +34,7 @@
             managerButton = new RadioButton();
             listView1 = new ListView();
             buttonCreateNewClient = new Button();
+            linkLabelGit = new LinkLabel();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -95,11 +96,23 @@
             buttonCreateNewClient.UseVisualStyleBackColor = false;
             buttonCreateNewClient.Click += buttonCreateNewClient_Click;
             // 
+            // linkLabelGit
+            // 
+            linkLabelGit.AutoSize = true;
+            linkLabelGit.Location = new Point(661, 109);
+            linkLabelGit.Name = "linkLabelGit";
+            linkLabelGit.Size = new Size(131, 15);
+            linkLabelGit.TabIndex = 3;
+            linkLabelGit.TabStop = true;
+            linkLabelGit.Text = "Исходный код(GitHub)";
+            linkLabelGit.VisitedLinkColor = Color.Gray;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(804, 441);
+            Controls.Add(linkLabelGit);
             Controls.Add(buttonCreateNewClient);
             Controls.Add(listView1);
             Controls.Add(groupBox1);
@@ -111,6 +124,7 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -120,5 +134,6 @@
         private RadioButton managerButton;
         private ListView listView1;
         private Button buttonCreateNewClient;
+        private LinkLabel linkLabelGit;
     }
 }

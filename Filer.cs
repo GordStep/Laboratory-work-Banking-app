@@ -174,9 +174,9 @@ namespace Banking_app
                 //File.Delete(dectyptFileName);
                 clients.Sort();
             }
-            else { MessageBox.Show("Файл не существует: " + fileName, "Ошибка!"); }
-            //File.Create(fileName).Close();
-            return clients;
+            else { MessageBox.Show($"Файл не найдет: {fileName}. \nОн будет создан автоматически.", "Сообщение от системы"); }
+                                                                                  //File.Create(fileName).Close();
+                return clients;
         }
     }
 }

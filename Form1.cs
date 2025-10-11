@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic.Logging;
+using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.InteropServices.Marshalling;
 using System.Windows.Forms;
@@ -210,7 +211,7 @@ namespace Banking_app
 
         private void listView1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right && managerNow)
             {
                 var selectedItem = listView1.SelectedItems[0];
 
@@ -227,11 +228,13 @@ namespace Banking_app
                         if (clients[i].getBankAccountNumber() == selectedId) // Удаление клиента из массива по Id
                         {
                             clients.RemoveAt(i);
+                            Logger.WriteLog($"Менеджер [номер: {manager.getId()} ФИО: {manager.ToString()}] удалил данные о клиенте [номер: {selectedId}]");
                             UpdateClientsDataInFile();
                             break;
                         }
                     }
                     listView1.Items.Remove(selectedItem);
+
                     
                 }
             }
@@ -277,6 +280,31 @@ namespace Banking_app
                 $"clientInfoFileName: {clientInfoFileName}" +
                 $"Текущая директория: {Directory.GetCurrentDirectory().ToString()}"
                 );
+        }
+
+        private void linkLabelGit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                VisitLink();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не получилось открыть ссылку.\n" + ex.Message, "Ошибка.");
+            }
+        }
+        private void VisitLink()
+        {
+            // Отмечаем, что ссылка посещена
+            linkLabelGit.LinkVisited = true;
+            
+            // Открываем ссылку
+            using (Process p = new Process())
+            {
+                p.StartInfo.FileName = "https://github.com/GordStep/Laboratory-work-Banking-app"; // название сайта
+                p.StartInfo.UseShellExecute = true; 
+                p.Start();
+            }
         }
     }
 }
